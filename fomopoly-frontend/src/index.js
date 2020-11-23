@@ -6,14 +6,14 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import catsReducer from './reducers/catsReducer.js';
+import spaceReducer from './reducers/spaceReducer';
 
-// const store = createStore(catsReducer, applyMiddleware(thunk))
+const store = createStore(spaceReducer, applyMiddleware(thunk))
 
 
 ReactDOM.render(
-  // <Provider>
-    <App />,
-  // </Provider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
