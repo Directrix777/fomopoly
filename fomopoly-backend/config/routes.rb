@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :games
   resources :users
   patch '/users/transact', to: 'users#transact'
   resources :spaces
