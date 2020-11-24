@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  color: MyString
+  houses: MyString
+  name: MyString
+  rent: MyString
+  mortgage: MyString
+  unmortgage: MyString
+  house_price: MyString
+  user_id: MyString
+
+two:
+  color: MyString
+  houses: MyString
+  name: MyString
+  rent: MyString
+  mortgage: MyString
+  unmortgage: MyString
+  house_price: MyString
+  user_id: MyString
