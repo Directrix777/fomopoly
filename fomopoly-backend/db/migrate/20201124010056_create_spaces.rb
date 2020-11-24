@@ -4,7 +4,12 @@ class CreateSpaces < ActiveRecord::Migration[6.0]
       t.string :color
       t.integer :houses
       t.string :name
-      t.integer :rent
+      t.integer :flat_rent
+      t.integer :one_house_rent
+      t.integer :two_house_rent
+      t.integer :three_house_rent
+      t.integer :four_house_rent
+      t.integer :hotel_rent
       t.integer :mortgage_value
       t.integer :unmortgage_price
       t.integer :house_price
