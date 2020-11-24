@@ -29,24 +29,6 @@ class UsersController < ApplicationController
         end
     end
 
-    def move_a_space
-        user = User.find_by(id: params[:id])
-        if user
-            if user.current_location == 40
-                user.current_location = 1
-            else
-                user.current_location = user.current_location + 1
-            end
-            if user.save
-                render json: {message: `Moved the #{user.token} a bit!`}
-            else
-                render json: {message: 'There was an error with the server!'}
-            end
-        else
-            render json: {message: 'User not found'}
-        end
-    end
-
     def pay_bank
         user = User.find_by(id: params[:id])
         amount = params[:amount]
