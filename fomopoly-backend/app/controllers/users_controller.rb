@@ -19,6 +19,23 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def edit
+        user = user = User.find_by(id: params[:id])
+        if user
+            user.name = params[:name]
+            user.game_id = params[:game_id]
+            user.cash = params[:cash]
+            user.current_location = params[:current_location]
+            if user.save
+                render json: user
+            else
+                render json: {message: 'There was an error with the server!'}
+            end
+        else
+            render json: {message: 'User not found'}
+        end
+    end
+
     def destroy
         user = User.find_by(id: params[:id])
         if user
