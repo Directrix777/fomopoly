@@ -11,6 +11,7 @@ class CreateSpaces < ActiveRecord::Migration[6.0]
       t.integer :hotel_rent
       t.integer :mortgage_value
       t.integer :house_price
+      t.integer :price
       t.integer :user_id
 
       t.timestamps
