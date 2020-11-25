@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Board from './Board'
+import { connect } from 'react-redux'
 
-export default class MyComponent extends Component
+class Game extends Component
 {
     constructor(props)
     {
@@ -41,3 +42,9 @@ export default class MyComponent extends Component
         return (<Board />)
     }
 }
+
+const mapStateToProps = (state) => {
+    return{spaces: state.spaces}
+}
+
+export default connect()(Game)
