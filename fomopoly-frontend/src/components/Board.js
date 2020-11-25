@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import {fetchSpaces} from '../actions/spaceActions'
 
 class Board extends Component
 {
@@ -29,6 +30,7 @@ class Board extends Component
     componentDidMount() {
         //this.interval = setInterval(this.fetchWeather, 15000);
         //can set up a constant fetch
+        this.props.fetchSpaces()
     }
 
     componentWillUnmount() {
@@ -48,4 +50,8 @@ const mapStateToProps = (state) => {
     return{spaces: state.spaces}
 }
 
-export default connect()(Board)
+const mapDispatchToProps = (dispatch) => {
+    return{fetchSpaces: () => dispatch(fetchSpaces())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board)
