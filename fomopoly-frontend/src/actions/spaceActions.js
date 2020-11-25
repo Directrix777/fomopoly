@@ -3,6 +3,6 @@ export const fetchSpaces = () => {
         dispatch({type: 'LOADING_SPACES'})
         fetch('http://localhost:3000/spaces')
         .then(r => r.json())
-        .then(r => {dispatch({type: 'ADD_SPACES', action: {spaces: r}})})
+        .then(r => {dispatch({type: 'ADD_SPACES', spaces: r})})
     }
 }
