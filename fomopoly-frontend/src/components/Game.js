@@ -44,7 +44,7 @@ class Game extends Component
 }
 
 const mapStateToProps = (state) => {
-    return{spaces: state.spaces}
+    return{users: state.users}
 }
 
 export default connect()(Game)
