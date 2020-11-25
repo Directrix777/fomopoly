@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Space from './Space'
 
 export default function Street(props) {
     return(
         <div>
-            {this.props.spaces.map((space) => {
+            {props.spaces.map((space) => {
                 if(space.id % 10 == 0)
                 {
                     return <Space space={space} corner={true}/>
