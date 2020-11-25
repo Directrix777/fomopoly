@@ -1,5 +1,5 @@
 import React from 'react'
-import Board from './components/Board'
+import Game from './components/Game'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export default function App() {
@@ -7,7 +7,7 @@ export default function App() {
     <>
       <BrowserRouter>
         <Switch>
-          <Route path='/' component={Board}/>
+          <Route path='/' component={Game}/>
         </Switch>
       </BrowserRouter>
       
