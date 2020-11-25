@@ -38,7 +38,9 @@ class Board extends Component
 
     render()
     {
-        return (<div>This is a wireframe from the Workshop</div>)
+        return (
+            <div className='board'>This is a wireframe from the Workshop</div>
+        )
     }
 }
 
