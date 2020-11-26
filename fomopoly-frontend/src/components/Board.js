@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {fetchSpaces} from '../actions/spaceActions'
+import CornerSpace from './CornerSpace'
 import Street from './Street'
 
 class Board extends Component
@@ -46,9 +47,13 @@ class Board extends Component
             return (
             <div className='board'>
                 <Street spaces={this.props.spaces.slice(0, 9).reverse()} side='left'/>
+                <CornerSpace space={this.props.spaces[9]}/>
                 <Street spaces={this.props.spaces.slice(10, 19)} side='top'/>
+                <CornerSpace space={this.props.spaces[19]}/>
                 <Street spaces={this.props.spaces.slice(20, 29)} side='right'/>
+                <CornerSpace space={this.props.spaces[29]}/>
                 <Street spaces={this.props.spaces.slice(30, 39)} side='bottom'/>
+                <CornerSpace space={this.props.spaces[39]}/>
             </div>
             )
         }
