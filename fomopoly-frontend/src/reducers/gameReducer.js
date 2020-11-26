@@ -4,7 +4,7 @@ const gameReducer = (state = {spaces: [], users: [], loading: false}, action) =>
         case 'LOADING_SPACES':
             return {...state, loading: true}
         case 'ADD_SPACES':
-            return {...state, spaces: action.spaces}
+            return {...state, spaces: action.spaces, loading: false}
         default:
             return state
     }
