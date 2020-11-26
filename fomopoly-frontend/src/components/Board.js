@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {fetchSpaces} from '../actions/spaceActions'
+import Street from './Street'
 
 class Board extends Component
 {
@@ -40,14 +41,30 @@ class Board extends Component
 
     render()
     {
-        return (
-            <div className='board'>This is a wireframe from the Workshop</div>
-        )
+        if (!this.props.loading && this.props.spaces.length !== 0)
+        {
+            return (
+            <div className='board'>
+                <Street spaces={this.props.spaces.slice(0, 9).reverse()} side='left'/>
+                <Street spaces={this.props.spaces.slice(10, 19)} side='top'/>
+                <Street spaces={this.props.spaces.slice(20, 29)} side='right'/>
+                <Street spaces={this.props.spaces.slice(30, 39)} side='bottom'/>
+            </div>
+            )
+        }
+        else
+        {
+            return(
+                <div className='board'>
+                    Loading Board
+                </div>
+            )
+        }
     }
 }
 
 const mapStateToProps = (state) => {
-    return{spaces: state.spaces}
+    return{spaces: state.spaces, loading: state.loading}
 }
 
 const mapDispatchToProps = (dispatch) => {
