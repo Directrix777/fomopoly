@@ -639,7 +639,7 @@ Space.create([
       "id": 38,
       "color": null,
       "name": "Luxury Tax",
-      "flat_rent": 200,
+      "flat_rent": 100,
       "one_house_rent": null,
       "two_house_rent": null,
       "three_house_rent": null,
