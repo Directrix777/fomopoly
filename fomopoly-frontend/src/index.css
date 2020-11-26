@@ -219,3 +219,17 @@ code {
   transform: rotate(90deg);
 }
 
+.icon-spot {
+  position: absolute;
+  height: 58px;
+  width: 58px;
+  right: 29px;
+  bottom: 29px;
+}
+
+.icon-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
