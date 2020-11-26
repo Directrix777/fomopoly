@@ -2,19 +2,24 @@ import React from 'react'
 import Space from './Space'
 
 export default function Street(props) {
-    return(
+    if(props.side == 'left' || props.side == 'right' )
+    {
+        return(
+            <div style={{width: 60}}>
+                {props.spaces.map((space) => {
+                        return <Space space={space} side={props.side}/>
+                })}
+            </div>
+        )
+    }
+    else
+    {
+        return(
         <div>
             {props.spaces.map((space) => {
-                if(space.id % 10 == 0)
-                {
-                    return <Space space={space} corner={true}/>
-                }
-                else
-                {
-                    return <Space space={space} corner={false}/>
-                }
+                    return <Space space={space} side={props.side}/>
             })}
         </div>
-        
-    )
+        )
+    }
 }
