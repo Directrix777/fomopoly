@@ -10,6 +10,10 @@ class Menu extends Component {
         this.interval = setInterval(this.props.fetchUsers, 2000)
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
     render() {
         return(
             <>
