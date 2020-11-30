@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
 import UserForm from './UserForm'
 import {connect} from 'react-redux'
+import {fetchUsers} from '../actions/userActions'
 import NewUserCard from './NewUserCard'
 
 class Menu extends Component {
+    
+    componentDidMount() {
+        this.interval = setInterval(this.props.fetchUsers, 2000)
+    }
+
     render() {
         return(
             <>
@@ -18,4 +24,8 @@ const mapStateToProps = (state) => {
     return{users: state.users}
 }
 
-export default connect(mapStateToProps)(Menu)
+const mapDispatchToProps = (dispatch) => {
+    return {fetchUsers: () => dispatch(fetchUsers())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)
