@@ -6,7 +6,7 @@ class UserForm extends Component {
     constructor() {
         super();
     
-        this.state = {name: '', token: 'Dog'};
+        this.state = {name: '', token: 'Car'};
       }
     
       handleChange = (event) => {
