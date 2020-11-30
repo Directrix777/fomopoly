@@ -233,3 +233,18 @@ code {
   width: 100%;
 }
 
+.new-user-card {
+  float: left;
+  border: 1px solid rgb(0,0,0);
+  height: 200px;
+  width: 150px;
+  margin: 10px;
+}
+
+.token-icon {
+    position: absolute;
+    height: 140px;
+    width: 140px;
+    transform: translateX(4px);
+}
+
