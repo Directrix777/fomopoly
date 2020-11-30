@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def index
         users = User.all
         render json: users
@@ -12,6 +14,7 @@ class UsersController < ApplicationController
     def create
         user = User.new
         user.name = params[:name]
+        user.token = params[:token]
         user.game_id = params[:game_id]
         user.cash = 1500
         user.current_location = 40
@@ -23,6 +26,7 @@ class UsersController < ApplicationController
         user = user = User.find_by(id: params[:id])
         if user
             user.name = params[:name]
+            user.token = params[:token]
             user.game_id = params[:game_id]
             user.cash = params[:cash]
             user.current_location = params[:current_location]
