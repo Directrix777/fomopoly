@@ -10,8 +10,14 @@ const gameReducer = (state = {spaces: [], users: [], loading: false}, action) =>
         case 'ADD_USERS':
             return {...state, users: action.users, loading: false}
         case 'ADD_USER':
-            console.log(action.user)
             return {...state, users: [...state.users, action.user]}
+        case 'DELETE_USER':
+            return {...state, users: state.users.map((user) => {
+                if(user.id !== action.id)
+                {
+                    return user
+                }
+            })}
         default: 
             return state
     }

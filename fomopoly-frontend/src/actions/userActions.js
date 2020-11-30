@@ -23,3 +23,19 @@ export const createUser = (user) => {
         .then(r => dispatch({type: 'ADD_USER', user: r}))
     }
 }
+
+export const deleteUser = (id) => {
+    return (dispatch) => {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({id: id})
+        }
+        fetch(`http://localhost:3000/users/${id}`, options)
+        .then(r => r.json())
+        .then(r => console.log(r))
+    }
+}
