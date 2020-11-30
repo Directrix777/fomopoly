@@ -252,3 +252,12 @@ code {
   transform: translateX(64px) translateY(170px);
 }
 
+.start-button {
+  height: 20px;
+  width: 120px;
+  text-align: center;
+  border: 1px solid rgb(0,0,0);
+  margin-left: 40px;
+  background-color: rgb(0, 173, 0);
+}
+

@@ -3,6 +3,7 @@ import UserForm from './UserForm'
 import {connect} from 'react-redux'
 import {fetchUsers, deleteUser} from '../actions/userActions'
 import NewUserCard from './NewUserCard'
+import { NavLink } from 'react-router-dom'
 
 class Menu extends Component {
     
@@ -17,6 +18,9 @@ class Menu extends Component {
     render() {
         return(
             <>
+                <div className='start-button'>
+                    <NavLink to='/game'>Start Game</NavLink>
+                </div>
                 <UserForm />
                 {this.props.users.map((user) => {return <NewUserCard key={user.id} user={user} delete={this.props.deleteUser}/>})}
             </>
