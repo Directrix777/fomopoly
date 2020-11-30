@@ -116,7 +116,7 @@ export default function NewUserCard(props) {
         <div className='new-user-card'>
             <p style={{textAlign: 'center'}}>{props.user.name}</p>
             {renderImage(props.user.token)}
-            <button className='delete-button'>X</button>
+            <button className='delete-button' onClick={() => props.delete(props.user.id)}>X</button>
         </div>
     )
 }

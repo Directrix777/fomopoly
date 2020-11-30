@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import UserForm from './UserForm'
 import {connect} from 'react-redux'
-import {fetchUsers} from '../actions/userActions'
+import {fetchUsers, deleteUser} from '../actions/userActions'
 import NewUserCard from './NewUserCard'
 
 class Menu extends Component {
@@ -18,7 +18,7 @@ class Menu extends Component {
         return(
             <>
                 <UserForm />
-                {this.props.users.map((user) => {return <NewUserCard key={user.id} user={user}/>})}
+                {this.props.users.map((user) => {return <NewUserCard key={user.id} user={user} delete={this.props.deleteUser}/>})}
             </>
         )
     }
@@ -29,7 +29,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {fetchUsers: () => dispatch(fetchUsers())}
+    return {
+        fetchUsers: () => dispatch(fetchUsers()),
+        deleteUser: (id) => dispatch(deleteUser(id))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)
