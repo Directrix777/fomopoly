@@ -236,7 +236,7 @@ code {
 .new-user-card {
   float: left;
   border: 1px solid rgb(0,0,0);
-  height: 200px;
+  height: 250px;
   width: 150px;
   margin: 10px;
 }
@@ -246,5 +246,9 @@ code {
     height: 140px;
     width: 140px;
     transform: translateX(4px);
+}
+
+.delete-button {
+  transform: translateX(64px) translateY(170px);
 }
 
