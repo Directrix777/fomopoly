@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Board from './Board'
 import { connect } from 'react-redux'
+import {createUser} from '../actions/userActions'
 
 class Game extends Component
 {
@@ -30,6 +31,7 @@ class Game extends Component
     componentDidMount() {
         //this.interval = setInterval(this.fetchWeather, 15000);
         //can set up a constant fetch
+        // this.props.createUser({name: 'Trixie', token: 'cat'})
     }
 
     componentWillUnmount() {
@@ -47,4 +49,8 @@ const mapStateToProps = (state) => {
     return{users: state.users}
 }
 
-export default connect()(Game)
+const mapDispatchToProps = (dispatch) => {
+    return {createUser: (user) => dispatch(createUser(user))}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game)
