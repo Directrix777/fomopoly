@@ -1,4 +1,5 @@
 import React from 'react'
+import TokenTracker from './TokenTracker'
 import jail from '../images/JAIL.jpg'
 import freeParking from '../images/FREE_PARKING.jpg'
 import goToJail from '../images/GO_TO_JAIL.jpg'
@@ -29,6 +30,7 @@ export default function CornerSpace(props) {
             return (
                 <div className='go-corner'>
                     <img className='go-image' src={go} alt='GO'/>
+                    <TokenTracker id={props.space.id}/>
                 </div>
             )
 
