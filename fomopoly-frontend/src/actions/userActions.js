@@ -45,3 +45,19 @@ export const deleteUser = (id) => {
         .then(r => console.log(r))
     }
 }
+
+export const saveUsers = (users) => {
+    return (dispatch) => {
+        const options = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(users)
+        }
+        fetch(`http://localhost:3000/users/${users[0].id}`, options)
+        .then(r => r.json())
+        .then(r => console.log(r))
+    };
+}

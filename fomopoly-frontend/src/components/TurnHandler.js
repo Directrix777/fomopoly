@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace} from '../actions/userActions'
+import {moveUserOneSpace, saveUsers} from '../actions/userActions'
 import Roller from './Roller'
 
 class TurnHandler extends Component{
@@ -23,11 +23,11 @@ class TurnHandler extends Component{
         this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
         (function myLoop(i, action, id) {
             setTimeout(function() {
-              action(id) //  your code here                
-              if (--i) myLoop(i, action, id);   //  decrement i and call myLoop again if i > 0
+              action(id)                
+              if (--i) myLoop(i, action, id);
             }, 500)
           })(total, this.props.moveUserOneSpace, user.id);
-          this.nextTurn()                   //  pass the number of iterations as an argument
+          this.nextTurn() 
     }
 
     componentDidUpdate() {
@@ -47,7 +47,7 @@ class TurnHandler extends Component{
             }
             else
             {
-                //gonna wanna save here
+                //probably gonna wanna save here
                 return {currentUserIndex: 0}
             }
         })
@@ -62,7 +62,6 @@ class TurnHandler extends Component{
             }
             else
             {
-                //gonna wanna save here
                 return {currentUserIndex: previousState.currentUserIndex - 1}
             }
         })
@@ -86,7 +85,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id))}
+    return {
+        moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
+        saveUsers: (users) => dispatch(saveUsers(users))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TurnHandler)
