@@ -19,6 +19,9 @@ class Menu extends Component {
         return(
             <>
                 <div className='start-button'>
+                    <NavLink to='/about'>About Fomopoly</NavLink>
+                </div>
+                <div className='start-button'>
                     <NavLink to='/game'>Start Game</NavLink>
                 </div>
                 <UserForm />
