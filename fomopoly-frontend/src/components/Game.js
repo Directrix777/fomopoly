@@ -3,13 +3,13 @@ import Board from './Board'
 import { connect } from 'react-redux'
 import {moveUserOneSpace} from '../actions/userActions'
 import UserStatCard from './UserStatCard'
+import TurnHandler from './TurnHandler'
 
 class Game extends Component
 {
     constructor(props)
     {
         super()
-        this.state = {}
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -22,17 +22,9 @@ class Game extends Component
           });
     }
 
-    changeStateDynamically()
-    {
-        this.setState((previousState) => {return {value: previousState.value + 1}})
-        //Just adding one as an example. You could call a function on this data if you wanted.
-        //previousState parameter is automatically passed in. Name is descriptive.
-    }
-
     componentDidMount() {
         //this.interval = setInterval(this.fetchWeather, 15000);
         //can set up a constant fetch
-        this.props.moveUserOneSpace(31)
     }
 
     componentWillUnmount() {
@@ -42,7 +34,13 @@ class Game extends Component
 
     render()
     {
-        return (<Board />)
+        return (
+            <>
+                {this.props.users.map((user) => {return <UserStatCard key={user.id} user={user}/>})}
+                <Board />
+                <TurnHandler />
+            </>
+        )
     }
 }
 
