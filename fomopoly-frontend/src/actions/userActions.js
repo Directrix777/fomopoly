@@ -24,6 +24,12 @@ export const createUser = (user) => {
     }
 }
 
+export const moveUserOneSpace = (id) => {
+    return (dispatch) => {
+        dispatch({type: 'MOVE_USER', id: id})
+    }
+}
+
 export const deleteUser = (id) => {
     return (dispatch) => {
         const options = {
