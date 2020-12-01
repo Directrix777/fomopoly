@@ -52,7 +52,7 @@ class TokenTracker extends Component
     setTokens() {
         let tokensOnThisSpace = []
         this.props.users.forEach((user) => {
-            if(user.current_location = this.props.id)
+            if(user.current_location === this.props.id)
             {
                 tokensOnThisSpace.push(user.token)
             }
