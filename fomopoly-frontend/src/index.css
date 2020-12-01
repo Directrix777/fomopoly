@@ -268,8 +268,28 @@ code {
   font-size: 11pt;
   font-weight: bold;
   margin-left: 15px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 4px;
   text-align: center;
+}
+
+.turn-handler {
+  height: 800px;
+  width: 150px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  text-align: center;
+  background-color: rgb(156, 131, 179);
+  color: aliceblue;
+}
+
+.roll-button {
+  height: 20px;
+  width: 120px;
+  text-align: center;
+  border: 1px solid rgb(0,0,0);
+  margin-left: 12px;
+  background-color: rgb(0, 173, 0);
 }
 

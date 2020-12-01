@@ -18,7 +18,7 @@ class TokenTracker extends Component
     constructor(props)
     {
         super()
-        this.state = {tokens: [], currentToken: 'none'}
+        this.state = {tokens: [], currentToken: 'none', iMightBeReRendering: 'true'}
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -41,11 +41,14 @@ class TokenTracker extends Component
     componentDidMount() {
         //this.interval = setInterval(this.fetchWeather, 15000);
         //can set up a constant fetch
-        this.setTokens()
+        this.interval = setInterval(() => {this.setTokens()}, 250);
+    }
+
+    componentDidUpdate() {
     }
 
     componentWillUnmount() {
-        //clearInterval(this.interval);
+        clearInterval(this.interval);
         //would stop the fetch set up in componentDidMount
     }
 
