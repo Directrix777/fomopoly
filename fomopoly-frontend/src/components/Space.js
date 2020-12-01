@@ -1,4 +1,5 @@
 import React from 'react'
+import TokenTracker from './TokenTracker'
 import train from '../images/TRAIN.gif'
 import electric from '../images/ELECTRIC.jpg'
 import water from '../images/WATER.jpg'
@@ -125,6 +126,7 @@ export default function Space(props) {
                 <p style={{height: 50}}>{props.space.name.toUpperCase()}</p>
                 {renderPrice(props.space)}
                 {renderIcon(props.space)}
+                <TokenTracker id={props.space.id}/>
             </div>
         )
 } 

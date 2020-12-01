@@ -12,18 +12,21 @@ export default function CornerSpace(props) {
             return (
                 <div className='jail-corner'>
                     <img className='jail-image' src={jail} alt='JAIL'/>
+                    <TokenTracker id={props.space.id}/>
                 </div>
             )
         case 20:
             return (
                 <div className='free-parking-corner'>
                     <img className='free-parking-image' src={freeParking} alt='FREE PARKING'/>
+                    <TokenTracker id={props.space.id}/>
                 </div>
             )
         case 30:
             return (
                 <div className='go-to-jail-corner'>
                     <img className='go-to-jail-image' src={goToJail} alt='GO TO JAIL'/>
+                    <TokenTracker id={props.space.id}/>
                 </div>
             )
         case 40:
