@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Board from './Board'
 import { connect } from 'react-redux'
 import {moveUserOneSpace} from '../actions/userActions'
+import UserStatCard from './UserStatCard'
 
 class Game extends Component
 {
