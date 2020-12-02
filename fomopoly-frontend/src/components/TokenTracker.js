@@ -41,7 +41,7 @@ class TokenTracker extends Component
     componentDidMount() {
         //this.interval = setInterval(this.fetchWeather, 15000);
         //can set up a constant fetch
-        this.interval = setInterval(() => {this.setTokens()}, 250);
+        this.interval = setInterval(() => {this.setTokens()}, 150);
     }
 
     componentDidUpdate() {
@@ -64,11 +64,12 @@ class TokenTracker extends Component
     }
 
     renderImage(token) {
+        const closs = `icon-image ${this.props.side}-token`
         if(token === 'Car')
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={CAR} alt='CAR TOKEN'/>
+                    <img className={closs} src={CAR} alt='CAR TOKEN'/>
                 </div>
             )
         }
@@ -76,7 +77,7 @@ class TokenTracker extends Component
         {
             return (
                     <div className='icon-spot'>
-                        <img className='icon-image' src={CAT} alt='CAT TOKEN'/>
+                        <img className={closs} src={CAT} alt='CAT TOKEN'/>
                     </div>
             )
         }
@@ -84,7 +85,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={DOG} alt='DOG TOKEN'/>
+                    <img className={closs} src={DOG} alt='DOG TOKEN'/>
                 </div>
             )
         }
@@ -92,7 +93,7 @@ class TokenTracker extends Component
         {
             return (
             <div className='icon-spot'>
-                <img className='icon-image' src={DUCK} alt='DUCK TOKEN'/>
+                <img className={closs} src={DUCK} alt='DUCK TOKEN'/>
             </div>
             )
         }
@@ -100,7 +101,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={HAT} alt='HAT TOKEN'/>
+                    <img className={closs} src={HAT} alt='HAT TOKEN'/>
                 </div>
             )
         }
@@ -108,7 +109,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={IRON} alt='IRON TOKEN'/>
+                    <img className={closs} src={IRON} alt='IRON TOKEN'/>
                 </div>
             )
         }
@@ -116,7 +117,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={PENGUIN} alt='PENGUIN TOKEN'/>
+                    <img className={closs} src={PENGUIN} alt='PENGUIN TOKEN'/>
                 </div>
             )
         }
@@ -124,7 +125,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={SHIP} alt='SHIP TOKEN'/>
+                    <img className={closs} src={SHIP} alt='SHIP TOKEN'/>
                 </div>
             )
         }
@@ -132,7 +133,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={SHOE} alt='SHOE TOKEN'/>
+                    <img className={closs} src={SHOE} alt='SHOE TOKEN'/>
                 </div>
             )
         }
@@ -140,7 +141,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={THIMBLE} alt='THIMBLE TOKEN'/>
+                    <img className={closs} src={THIMBLE} alt='THIMBLE TOKEN'/>
                 </div>
             )
         }
@@ -148,7 +149,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={TREX} alt='T-REX TOKEN'/>
+                    <img className={closs} src={TREX} alt='T-REX TOKEN'/>
                 </div>
             )
         }
@@ -156,7 +157,7 @@ class TokenTracker extends Component
         {
             return (
                 <div className='icon-spot'>
-                    <img className='icon-image' src={WHEELBARROW} alt='WHEELBARROW TOKEN'/>
+                    <img className={closs} src={WHEELBARROW} alt='WHEELBARROW TOKEN'/>
                 </div>
             )
         }

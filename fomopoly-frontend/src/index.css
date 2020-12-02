@@ -293,3 +293,14 @@ code {
   background-color: rgb(0, 173, 0);
 }
 
+.top-token {
+  transform: rotate(180deg);
+}
+
+.right-token {
+  transform: rotate(90deg);
+}
+
+.left-token {
+  transform: rotate(-90deg);
+}
