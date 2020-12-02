@@ -15,14 +15,14 @@ const gameReducer = (state = {spaces: [], users: [], loading: false}, action) =>
             let newUsers = state.users.map((user) => {
                 if(user.id === action.id)
                 {
-                    console.log("Found user to update location")
+                    //console.log("Found user to update location")
                     let newUser = {}
                     Object.assign(newUser, user)
-                    console.log(newUser)
+                    //console.log(newUser)
                     if(user.current_location === 40)
                     {
                         newUser.current_location = 1
-                        console.log(newUser)
+                        //console.log(newUser)
                         return newUser
                     }
                     else
