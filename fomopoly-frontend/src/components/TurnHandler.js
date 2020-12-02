@@ -20,58 +20,40 @@ class TurnHandler extends Component{
         const secondDice = parseInt((Math.random() * 6) + 1)
         const total = firstDice + secondDice
         const user = this.currentUser()
+        const nextTurn = this.nextTurn.bind(this)
         this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
         (function myLoop(i, action, id) {
             setTimeout(function() {
-              action(id)                
+              action(id)            
               if (--i) myLoop(i, action, id);
+              else nextTurn()
             }, 500)
           })(total, this.props.moveUserOneSpace, user.id);
-          this.nextTurn() 
-    }
-
-    componentDidUpdate() {
-        if(this.state.firstDice === this.state.secondDice && !this.state.gotten)
-        {
-            this.setState({...this.state, gotten: true})
-            this.prevTurn()
-        }
+          //this.nextTurn() 
     }
 
     nextTurn()
     {
-        this.setState((previousState) => {
-            if(this.state.currentUserIndex < this.props.users.length - 1)
-            {
-                return {currentUserIndex: previousState.currentUserIndex + 1}
-            }
-            else
-            {
-                //probably gonna wanna save here
-                return {currentUserIndex: 0}
-            }
-        })
-    }
-
-    prevTurn()
-    {
-        this.setState((previousState) => {
-            if(this.state.currentUserIndex === 0)
-            {
-                return {currentUserIndex: this.props.users.length - 1}
-            }
-            else
-            {
-                return {currentUserIndex: previousState.currentUserIndex - 1}
-            }
-        })
+        if (this.state.firstDice !== this.state.secondDice)
+        {
+            this.setState((previousState) => {
+                if(this.state.currentUserIndex < this.props.users.length - 1)
+                {
+                    return {currentUserIndex: previousState.currentUserIndex + 1}
+                }
+                else
+                {
+                    //gonna wanna save here
+                    return {currentUserIndex: 0}
+                }
+            })
+        }
     }
 
     render(){
         
         return(
             <div className='turn-handler'>
-                <p style={{margin: 0}}>Previous Roll:</p>
                 <Roller first={this.state.firstDice} second={this.state.secondDice} total={this.state.total}/>
                 <div className='roll-button' onClick={() => this.roll()}>Roll</div>
                 <p>{`Now ${this.currentUser().name}'s Turn!`}</p>
