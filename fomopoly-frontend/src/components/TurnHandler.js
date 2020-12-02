@@ -1,17 +1,25 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUsers} from '../actions/userActions'
+import {moveUserOneSpace, saveUsers, movingUser, doneMovingUser} from '../actions/userActions'
 import Roller from './Roller'
 
 class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, gotten: false}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving}
     }
 
     currentUser() {
         return this.props.users[this.state.currentUserIndex]
+    }
+
+    handleRoll()
+    {
+        if(!this.props.moving)
+        {
+            this.roll()
+        }
     }
 
     roll()
@@ -21,12 +29,21 @@ class TurnHandler extends Component{
         const total = firstDice + secondDice
         const user = this.currentUser()
         const nextTurn = this.nextTurn.bind(this)
+        const done = this.props.doneMovingUser
         this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
+        this.props.movingUser();
         (function myLoop(i, action, id) {
             setTimeout(function() {
-              action(id)            
-              if (--i) myLoop(i, action, id);
-              else nextTurn()
+                action(id)            
+                if (--i) 
+                {
+                    myLoop(i, action, id);
+                }
+                else 
+                {
+                    done()
+                    nextTurn()
+                }
             }, 500)
           })(total, this.props.moveUserOneSpace, user.id);
           //this.nextTurn() 
@@ -55,7 +72,7 @@ class TurnHandler extends Component{
         return(
             <div className='turn-handler'>
                 <Roller first={this.state.firstDice} second={this.state.secondDice} total={this.state.total}/>
-                <div className='roll-button' onClick={() => this.roll()}>Roll</div>
+                <div className='roll-button' onClick={() => this.handleRoll()}>Roll</div>
                 <p>{`Now ${this.currentUser().name}'s Turn!`}</p>
             </div>
         )
@@ -63,13 +80,15 @@ class TurnHandler extends Component{
 }
 
 const mapStateToProps = (state) => {
-    return{users: state.users}
+    return{users: state.users, moving: state.moving}
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
-        saveUsers: (users) => dispatch(saveUsers(users))
+        saveUsers: (users) => dispatch(saveUsers(users)),
+        movingUser: () => dispatch(movingUser()),
+        doneMovingUser: () => dispatch(doneMovingUser())
     }
 }
 

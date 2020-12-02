@@ -1,4 +1,4 @@
-const gameReducer = (state = {spaces: [], users: [], loading: false}, action) => {
+const gameReducer = (state = {spaces: [], users: [], loading: false, moving: false}, action) => {
     switch(action.type)
     {
         case 'LOADING_SPACES':
@@ -36,6 +36,10 @@ const gameReducer = (state = {spaces: [], users: [], loading: false}, action) =>
             return {...state, users: newUsers}
         case 'DELETE_USER':
             return {...state, users: state.users.filter((user) => {return user.id !== action.id})}
+        case 'MOVING_USER':
+            return {...state, moving: true}
+        case 'DONE_MOVING_USER':
+            return {...state, moving: false}
         default: 
             return state
     }
