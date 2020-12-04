@@ -46,7 +46,7 @@ export const deleteUser = (id) => {
     }
 }
 
-export const saveUsers = (users) => {
+export const saveUser = (user) => {
     return (dispatch) => {
         const options = {
             method: 'PATCH',
@@ -54,9 +54,10 @@ export const saveUsers = (users) => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(users)
+            body: JSON.stringify(user)
         }
-        fetch(`http://localhost:3000/users/${users[0].id}`, options)
+        console.log(user)
+        fetch(`http://localhost:3000/users/${user.id}`, options)
         .then(r => r.json())
         .then(r => console.log(r))
     };

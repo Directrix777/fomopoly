@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUsers, movingUser, doneMovingUser} from '../actions/userActions'
+import {moveUserOneSpace, saveUser, movingUser, doneMovingUser} from '../actions/userActions'
 import Roller from './Roller'
 
 class TurnHandler extends Component{
@@ -60,7 +60,7 @@ class TurnHandler extends Component{
                 }
                 else
                 {
-                    //gonna wanna save here
+                    this.props.users.map((user) => {this.props.saveUser(user)})
                     return {currentUserIndex: 0}
                 }
             })
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
-        saveUsers: (users) => dispatch(saveUsers(users)),
+        saveUser: (user) => dispatch(saveUser(user)),
         movingUser: () => dispatch(movingUser()),
         doneMovingUser: () => dispatch(doneMovingUser())
     }
