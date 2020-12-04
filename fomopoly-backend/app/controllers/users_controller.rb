@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-    skip_before_action :verify_authenticity_token
 
     def index
         users = User.all
@@ -23,20 +22,22 @@ class UsersController < ApplicationController
     end
 
     def update
-        user = user = User.find_by(id: params[:id])
-        if user
-            user.name = params[:name]
-            user.token = params[:token]
-            user.game_id = params[:game_id]
-            user.cash = params[:cash]
-            user.current_location = params[:current_location]
-            if user.save
-                render json: user
+        @@lock.synchronize do
+            user = user = User.find_by(id: params[:id])
+            if user
+                user.name = params[:name]
+                user.token = params[:token]
+                user.game_id = params[:game_id]
+                user.cash = params[:cash]
+                user.current_location = params[:current_location]
+                if user.save
+                    render json: user
+                else
+                    render json: {message: 'There was an error with the server!'}
+                end
             else
-                render json: {message: 'There was an error with the server!'}
+                render json: {message: 'User not found'}
             end
-        else
-            render json: {message: 'User not found'}
         end
     end
 
