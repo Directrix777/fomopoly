@@ -22,7 +22,7 @@ class UsersController < ApplicationController
         render json: user
     end
 
-    def edit
+    def update
         user = user = User.find_by(id: params[:id])
         if user
             user.name = params[:name]
