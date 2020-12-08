@@ -227,6 +227,14 @@ code {
   bottom: 29px;
 }
 
+.just-visit-spot {
+  position: absolute;
+  height: 58px;
+  width: 58px;
+  right: 69px;
+  bottom: 79px;
+}
+
 .icon-image {
   position: absolute;
   height: 100%;
