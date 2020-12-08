@@ -18,7 +18,7 @@ class TokenTracker extends Component
     constructor(props)
     {
         super()
-        this.state = {tokens: [], currentToken: 'none', iMightBeReRendering: 'true'}
+        this.state = {tokens: []}
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -60,15 +60,20 @@ class TokenTracker extends Component
                 tokensOnThisSpace.push(user.token)
             }
         })
-        this.setState({...this.state, tokens: tokensOnThisSpace, currentToken: tokensOnThisSpace[0]})
+        this.setState({...this.state, tokens: tokensOnThisSpace})
     }
 
     renderImage(token) {
         const closs = `icon-image ${this.props.side}-token`
+        let spot = `icon-spot`
+        let currentUser = this.props.users.filter((user) => {return user.token === token})[0] //All users must have unique tokens or this breaks
+        if(currentUser.current_location === 10 && currentUser.in_jail === false) {
+            spot = `just-visit-spot`
+        }
         if(token === 'Car')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={CAR} alt='CAR TOKEN'/>
                 </div>
             )
@@ -76,7 +81,7 @@ class TokenTracker extends Component
         else if(token === 'Cat')
         {
             return (
-                    <div className='icon-spot'>
+                    <div className={spot}>
                         <img className={closs} src={CAT} alt='CAT TOKEN'/>
                     </div>
             )
@@ -84,7 +89,7 @@ class TokenTracker extends Component
         else if(token === 'Dog')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={DOG} alt='DOG TOKEN'/>
                 </div>
             )
@@ -92,7 +97,7 @@ class TokenTracker extends Component
         else if(token === 'Duck')
         {
             return (
-            <div className='icon-spot'>
+            <div className={spot}>
                 <img className={closs} src={DUCK} alt='DUCK TOKEN'/>
             </div>
             )
@@ -100,7 +105,7 @@ class TokenTracker extends Component
         else if(token === 'Hat')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={HAT} alt='HAT TOKEN'/>
                 </div>
             )
@@ -108,7 +113,7 @@ class TokenTracker extends Component
         else if(token === 'Iron')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={IRON} alt='IRON TOKEN'/>
                 </div>
             )
@@ -116,7 +121,7 @@ class TokenTracker extends Component
         else if(token === 'Penguin')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={PENGUIN} alt='PENGUIN TOKEN'/>
                 </div>
             )
@@ -124,7 +129,7 @@ class TokenTracker extends Component
         else if(token === 'Ship')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={SHIP} alt='SHIP TOKEN'/>
                 </div>
             )
@@ -132,7 +137,7 @@ class TokenTracker extends Component
         else if(token === 'Shoe')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={SHOE} alt='SHOE TOKEN'/>
                 </div>
             )
@@ -140,7 +145,7 @@ class TokenTracker extends Component
         else if(token === 'Thimble')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={THIMBLE} alt='THIMBLE TOKEN'/>
                 </div>
             )
@@ -148,7 +153,7 @@ class TokenTracker extends Component
         else if(token === 'T-rex')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={TREX} alt='T-REX TOKEN'/>
                 </div>
             )
@@ -156,7 +161,7 @@ class TokenTracker extends Component
         else if(token === 'Wheelbarrow')
         {
             return (
-                <div className='icon-spot'>
+                <div className={spot}>
                     <img className={closs} src={WHEELBARROW} alt='WHEELBARROW TOKEN'/>
                 </div>
             )
@@ -169,7 +174,9 @@ class TokenTracker extends Component
 
     render()
     {
-        return this.renderImage(this.state.currentToken)
+        return this.state.tokens.map((token) => {
+            return this.renderImage(token)
+        })
     }
 }
 
