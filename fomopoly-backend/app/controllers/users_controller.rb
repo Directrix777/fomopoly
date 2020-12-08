@@ -17,6 +17,7 @@ class UsersController < ApplicationController
         user.game_id = params[:game_id]
         user.cash = 1500
         user.current_location = 40
+        user.in_jail = false
         user.save
         render json: user
     end

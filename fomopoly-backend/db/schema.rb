@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_193513) do
+ActiveRecord::Schema.define(version: 2020_12_08_163800) do
 
   create_table "games", force: :cascade do |t|
     t.string "host_name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_193513) do
     t.integer "game_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "in_jail"
   end
 
 end
