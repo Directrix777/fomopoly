@@ -31,6 +31,7 @@ class UsersController < ApplicationController
                 user.game_id = params[:game_id]
                 user.cash = params[:cash]
                 user.current_location = params[:current_location]
+                user.in_jail = params[:in_jail]
                 if user.save
                     render json: user
                 else
