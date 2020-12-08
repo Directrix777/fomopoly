@@ -22,13 +22,25 @@ class TurnHandler extends Component{
         }
     }
 
+    handleLanding()
+    {
+        console.log(this.currentUser().in_jail)
+        if(this.currentUser().current_location !== 30)
+        {
+            this.currentUser().in_jail = true
+            this.currentUser().current_location = 10
+        }
+        console.log(this.props.users)
+        this.nextTurn()
+    }
+
     roll()
     {
         const firstDice = parseInt((Math.random() * 6) + 1)
         const secondDice = parseInt((Math.random() * 6) + 1)
         const total = firstDice + secondDice
         const user = this.currentUser()
-        const nextTurn = this.nextTurn.bind(this)
+        const handleLanding = this.handleLanding.bind(this)
         const done = this.props.doneMovingUser
         this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
         this.props.movingUser();
@@ -42,7 +54,7 @@ class TurnHandler extends Component{
                 else 
                 {
                     done()
-                    nextTurn()
+                    handleLanding()
                 }
             }, 500)
           })(total, this.props.moveUserOneSpace, user.id);
@@ -60,7 +72,8 @@ class TurnHandler extends Component{
                 }
                 else
                 {
-                    this.props.users.map((user) => {this.props.saveUser(user)})
+                    console.log(this.props.users)
+                    this.props.users.forEach((user) => {this.props.saveUser(user)})
                     return {currentUserIndex: 0}
                 }
             })
