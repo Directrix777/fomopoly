@@ -7,7 +7,7 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving, rollable: 'rollable-button'}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving, rollable: 'active-button', landed: false}
     }
 
     currentUser() {
@@ -30,7 +30,7 @@ class TurnHandler extends Component{
     {
         if(!this.props.moving)
         {
-            this.setState({...this.state, rollable: 'rollable-button'})
+            this.setState({...this.state, rollable: 'active-button'})
             clearInterval()
         }
     }
@@ -42,7 +42,7 @@ class TurnHandler extends Component{
             this.currentUser().in_jail = true
             this.currentUser().current_location = 10
         }
-        this.nextTurn()
+        this.setState({...this.state, landed: true})
     }
 
     roll()
@@ -74,6 +74,7 @@ class TurnHandler extends Component{
 
     nextTurn()
     {
+        this.setState({...this.state, landed: false})
         if (this.state.firstDice !== this.state.secondDice)
         {
             this.setState((previousState) => {
@@ -98,8 +99,18 @@ class TurnHandler extends Component{
                 <Roller first={this.state.firstDice} second={this.state.secondDice} total={this.state.total}/>
                 <div className={this.state.rollable} onClick={() => this.handleRoll()}>Roll</div>
                 <p>{`Now ${this.currentUser().name}'s Turn!`}</p>
+                {this.renderButtons()}
             </div>
         )
+    }
+
+    renderButtons()
+    {
+        if(this.state.landed)
+        {
+            //Render the Button components here
+            console.log('supposed to render the buttons here!')
+        }
     }
 }
 
