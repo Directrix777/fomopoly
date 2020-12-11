@@ -292,13 +292,22 @@ code {
   color: aliceblue;
 }
 
-.roll-button {
+.rollable-button {
   height: 20px;
   width: 120px;
   text-align: center;
   border: 1px solid rgb(0,0,0);
   margin-left: 12px;
   background-color: rgb(0, 173, 0);
+}
+
+.disabled-button {
+  height: 20px;
+  width: 120px;
+  text-align: center;
+  border: 1px solid rgb(0,0,0);
+  margin-left: 12px;
+  background-color: rgb(173, 173, 173);
 }
 
 .top-token {
