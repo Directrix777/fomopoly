@@ -7,7 +7,7 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving, rollable: 'rollable-button'}
     }
 
     currentUser() {
@@ -18,19 +18,30 @@ class TurnHandler extends Component{
     {
         if(!this.props.moving)
         {
+            
+            this.setState({...this.state, rollable: 'disabled-button'})
+            this.interval = setInterval(this.makeRollable.bind(this), 150)
             this.roll()
+
+        }
+    }
+
+    makeRollable()
+    {
+        if(!this.props.moving)
+        {
+            this.setState({...this.state, rollable: 'rollable-button'})
+            clearInterval()
         }
     }
 
     handleLanding()
     {
-        console.log(this.currentUser().in_jail)
-        if(this.currentUser().current_location !== 30)
+        if(this.currentUser().current_location === 30)
         {
             this.currentUser().in_jail = true
             this.currentUser().current_location = 10
         }
-        console.log(this.props.users)
         this.nextTurn()
     }
 
@@ -85,7 +96,7 @@ class TurnHandler extends Component{
         return(
             <div className='turn-handler'>
                 <Roller first={this.state.firstDice} second={this.state.secondDice} total={this.state.total}/>
-                <div className='roll-button' onClick={() => this.handleRoll()}>Roll</div>
+                <div className={this.state.rollable} onClick={() => this.handleRoll()}>Roll</div>
                 <p>{`Now ${this.currentUser().name}'s Turn!`}</p>
             </div>
         )
