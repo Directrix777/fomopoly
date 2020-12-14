@@ -22,6 +22,7 @@ class TurnHandler extends Component{
             
             this.setState({...this.state, rollable: 'disabled-button'})
             this.roll()
+            setTimeout(this.moveUser.bind(this), 150)
 
         }
     }
@@ -41,10 +42,14 @@ class TurnHandler extends Component{
         const firstDice = parseInt((Math.random() * 6) + 1)
         const secondDice = parseInt((Math.random() * 6) + 1)
         const total = firstDice + secondDice
+        this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
+    }
+
+    moveUser()
+    {
         const user = this.currentUser()
         const handleLanding = this.handleLanding.bind(this)
         const done = this.props.doneMovingUser
-        this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
         this.props.movingUser();
         (function myLoop(i, action, id) {
             setTimeout(function() {
@@ -59,8 +64,7 @@ class TurnHandler extends Component{
                     handleLanding()
                 }
             }, 500)
-          })(total, this.props.moveUserOneSpace, user.id);
-          //this.nextTurn() 
+        })(this.state.total, this.props.moveUserOneSpace, user.id);
     }
 
     nextTurn()
