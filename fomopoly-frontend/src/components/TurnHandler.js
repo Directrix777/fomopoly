@@ -28,10 +28,20 @@ class TurnHandler extends Component{
 
     handleLanding()
     {
-        if(this.currentUser().current_location === 30)
+        switch(this.currentUser().current_location)
         {
-            this.currentUser().in_jail = true
-            this.currentUser().current_location = 10
+            case 4:
+                this.props.payToBank(this.currentUser().id, 100)
+                break
+            case 30:
+                this.currentUser().in_jail = true
+                this.currentUser().current_location = 10
+                break
+            case 38:
+                this.props.payToBank(this.currentUser().id, 100)
+                break
+            default:
+                //nothing. This should only happen on free parking and just visiting/jail
         }
         this.setState({...this.state, landed: true})
     }
