@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUser} from '../actions/userActions'
+import {moveUserOneSpace, saveUser, payToBank} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
 
@@ -124,8 +124,25 @@ class TurnHandler extends Component{
             }
             return (
                 <>
-                    <Button type='active' text='Pay Bail'/>
-                    <Button type='active' text='Roll for Doubles'/>
+                    <Button type='active' text='Pay Bail' handleClick={() => {
+                        this.currentUser().in_jail = false
+                        this.setState({...this.state, rollable: 'active-button'})
+                        this.props.payToBank(this.currentUser().id, 50)
+                    }}/>
+                    <Button type='active' text='Roll for Doubles' handleClick={() => {
+                        this.roll()
+                        setTimeout(() => {
+                            if(this.state.firstDice === this.state.secondDice)
+                            {
+                                this.currentUser().in_jail = false
+                                this.setState({...this.state, rollable: 'active-button'})
+                            }
+                            else
+                            {
+                                console.log('I would end their turn here')
+                            }
+                        }, 150)
+                    }}/>
                 </>
             )
         }
@@ -139,7 +156,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
-        saveUser: (user) => dispatch(saveUser(user))
+        saveUser: (user) => dispatch(saveUser(user)),
+        payToBank: (id, amount) => dispatch(payToBank(id, amount))
     }
 }
 
