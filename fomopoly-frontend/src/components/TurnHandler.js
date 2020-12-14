@@ -139,7 +139,7 @@ class TurnHandler extends Component{
                             }
                             else
                             {
-                                console.log('I would end their turn here')
+                                this.nextTurn()
                             }
                         }, 150)
                     }}/>
