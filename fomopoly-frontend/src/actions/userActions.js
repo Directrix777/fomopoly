@@ -62,3 +62,9 @@ export const saveUser = (user) => {
         .then(r => console.log(r))
     };
 }
+
+export const payToBank = (id, amount) => {
+    return (dispatch) => {
+        dispatch({type: 'PAY_TO_BANK', id: id, amount: amount})
+    }
+}

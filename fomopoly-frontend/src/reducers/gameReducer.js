@@ -36,6 +36,20 @@ const gameReducer = (state = {spaces: [], users: [], loading: false, moving: fal
             return {...state, users: newUsers}
         case 'DELETE_USER':
             return {...state, users: state.users.filter((user) => {return user.id !== action.id})}
+        case 'PAY_TO_BANK':
+            let newUserss = state.users.map((user) => {
+                if(user.id === action.id)
+                {
+                    //console.log("Found user to update location")
+                    let newUser = {}
+                    Object.assign(newUser, user)
+                    //console.log(newUser)
+                    newUser.cash -= action.amount
+                    return newUser
+                }
+                return user
+            })
+            return {...state, users: newUserss}
         default: 
             return state
     }
