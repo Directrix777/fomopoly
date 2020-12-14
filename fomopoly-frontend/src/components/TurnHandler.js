@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {moveUserOneSpace, saveUser, movingUser, doneMovingUser} from '../actions/userActions'
 import Roller from './Roller'
+import Button from './Button'
 
 class TurnHandler extends Component{
     constructor(props)
@@ -20,18 +21,8 @@ class TurnHandler extends Component{
         {
             
             this.setState({...this.state, rollable: 'disabled-button'})
-            this.interval = setInterval(this.makeRollable.bind(this), 150)
             this.roll()
 
-        }
-    }
-
-    makeRollable()
-    {
-        if(!this.props.moving)
-        {
-            this.setState({...this.state, rollable: 'active-button'})
-            clearInterval()
         }
     }
 
@@ -74,7 +65,7 @@ class TurnHandler extends Component{
 
     nextTurn()
     {
-        this.setState({...this.state, landed: false})
+        this.setState({...this.state, rollable: 'active-button', landed: false})
         if (this.state.firstDice !== this.state.secondDice)
         {
             this.setState((previousState) => {
@@ -108,8 +99,35 @@ class TurnHandler extends Component{
     {
         if(this.state.landed)
         {
-            //Render the Button components here
-            console.log('supposed to render the buttons here!')
+            if(this.currentUser().current_location === 10 && this.currentUser().in_jail === true)
+            {
+                return (
+                    <>
+                        <Button type='active' text='Pay Bail' handleClick={this.nextTurn.bind(this)}/>
+                    </>
+                )
+            }
+            else
+            {        
+                return (
+                    <>
+                        <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
+                    </>
+                )
+            }
+        }
+        else if(this.currentUser().current_location === 10 && this.currentUser().in_jail === true)
+        {
+            if(this.state.rollable === 'active-button')
+            {
+                this.setState({...this.state, rollable: 'disabled-button'})
+            }
+            return (
+                <>
+                    <Button type='active' text='Pay Bail'/>
+                    <Button type='active' text='Roll for Doubles'/>
+                </>
+            )
         }
     }
 }
