@@ -298,7 +298,17 @@ code {
   text-align: center;
   border: 1px solid rgb(0,0,0);
   margin-left: 12px;
+  margin-bottom: 11px;
   background-color: rgb(0, 173, 0);
+}
+
+.passive-button {
+  height: 20px;
+  width: 120px;
+  text-align: center;
+  border: 1px solid rgb(0,0,0);
+  margin-left: 12px;
+  background-color: rgb(173, 0, 0);
 }
 
 .disabled-button {
