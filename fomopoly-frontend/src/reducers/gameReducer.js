@@ -36,10 +36,6 @@ const gameReducer = (state = {spaces: [], users: [], loading: false, moving: fal
             return {...state, users: newUsers}
         case 'DELETE_USER':
             return {...state, users: state.users.filter((user) => {return user.id !== action.id})}
-        case 'MOVING_USER':
-            return {...state, moving: true}
-        case 'DONE_MOVING_USER':
-            return {...state, moving: false}
         default: 
             return state
     }

@@ -62,15 +62,3 @@ export const saveUser = (user) => {
         .then(r => console.log(r))
     };
 }
-
-export const movingUser = () => {
-    return (dispatch) => {
-        dispatch({type: 'MOVING_USER'})
-    }
-}
-
-export const doneMovingUser = () => {
-    return (dispatch) => {
-        dispatch({type: 'DONE_MOVING_USER'})
-    }
-}

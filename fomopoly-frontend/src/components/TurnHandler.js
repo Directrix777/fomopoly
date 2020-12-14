@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUser, movingUser, doneMovingUser} from '../actions/userActions'
+import {moveUserOneSpace, saveUser} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
 
@@ -8,7 +8,7 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, moving: props.moving, rollable: 'active-button', landed: false}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false}
     }
 
     currentUser() {
@@ -17,9 +17,8 @@ class TurnHandler extends Component{
 
     handleRoll()
     {
-        if(!this.props.moving)
+        if(this.state.rollable !== 'disabled-button')
         {
-            
             this.setState({...this.state, rollable: 'disabled-button'})
             this.roll()
             setTimeout(this.moveUser.bind(this), 150)
@@ -48,9 +47,7 @@ class TurnHandler extends Component{
     moveUser()
     {
         const user = this.currentUser()
-        const handleLanding = this.handleLanding.bind(this)
-        const done = this.props.doneMovingUser
-        this.props.movingUser();
+        const handleLanding = this.handleLanding.bind(this);
         (function myLoop(i, action, id) {
             setTimeout(function() {
                 action(id)            
@@ -60,7 +57,6 @@ class TurnHandler extends Component{
                 }
                 else 
                 {
-                    done()
                     handleLanding()
                 }
             }, 500)
@@ -143,9 +139,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
-        saveUser: (user) => dispatch(saveUser(user)),
-        movingUser: () => dispatch(movingUser()),
-        doneMovingUser: () => dispatch(doneMovingUser())
+        saveUser: (user) => dispatch(saveUser(user))
     }
 }
 
