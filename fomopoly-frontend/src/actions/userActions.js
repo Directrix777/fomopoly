@@ -78,3 +78,9 @@ export const doubleUser = (id) => {
         dispatch({type: 'DOUBLE_USER', id: id})
     }
 }
+
+export const resetDoubles = (id) => {
+    return (dispatch) => {
+        dispatch({type: 'RESET_DOUBLES', id: id})
+    }
+}
