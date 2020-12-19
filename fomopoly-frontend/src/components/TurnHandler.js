@@ -37,6 +37,10 @@ class TurnHandler extends Component{
                             this.currentUser().current_location = 10
                             this.setState({...this.state, landed: true})
                         }
+                        else
+                        {
+                            this.moveUser()
+                        }
                     }, 150)
                 }
             }, 150)
