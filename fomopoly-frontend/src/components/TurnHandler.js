@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUser, payToBank, doubleUser} from '../actions/userActions'
+import {moveUserOneSpace, saveUser, payToBank, doubleUser, resetDoubles} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
 
@@ -97,18 +97,17 @@ class TurnHandler extends Component{
 
     nextTurn()
     {
-        this.setState({...this.state, rollable: 'active-button', landed: false})
-        if (this.state.firstDice !== this.state.secondDice || this.currentUser().in_jail === true)
+        if (this.currentUser().doubles_rolled === 0 || this.currentUser().in_jail === true)
         {
             this.setState((previousState) => {
                 if(this.state.currentUserIndex < this.props.users.length - 1)
                 {
-                    return {currentUserIndex: previousState.currentUserIndex + 1}
+                    return {currentUserIndex: previousState.currentUserIndex + 1, rollable: 'active-button', landed: false}
                 }
                 else
                 {
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
-                    return {currentUserIndex: 0}
+                    return {currentUserIndex: 0, rollable: 'active-button', landed: false}
                 }
             })
         }
@@ -155,11 +154,12 @@ class TurnHandler extends Component{
                             if(this.state.firstDice === this.state.secondDice)
                             {
                                 this.currentUser().in_jail = false
-                                this.setState({...this.state, rollable: 'active-button'})
+                                this.props.resetDoubles(this.currentUser().id)
+                                this.moveUser()
                             }
                             else
                             {
-                                this.nextTurn()
+                                this.handleLanding()
                             }
                         }, 150)
                     }}/>
@@ -178,7 +178,8 @@ const mapDispatchToProps = (dispatch) => {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
         saveUser: (user) => dispatch(saveUser(user)),
         payToBank: (id, amount) => dispatch(payToBank(id, amount)),
-        doubleUser: (id) => dispatch(doubleUser(id))
+        doubleUser: (id) => dispatch(doubleUser(id)),
+        resetDoubles: (id) => dispatch(resetDoubles(id))
     }
 }
 
