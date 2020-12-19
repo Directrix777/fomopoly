@@ -17,7 +17,6 @@ export const createUser = (user) => {
             },
             body: JSON.stringify({name: user.name, token: user.token, game_id: user.game_id})
         }
-        console.log(user)
         fetch('http://localhost:3000/users', options)
         .then(r => r.json())
         .then(r => dispatch({type: 'ADD_USER', user: r}))
@@ -56,7 +55,6 @@ export const saveUser = (user) => {
             },
             body: JSON.stringify(user)
         }
-        console.log(user)
         fetch(`http://localhost:3000/users/${user.id}`, options)
         .then(r => r.json())
         .then(r => console.log(r))

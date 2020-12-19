@@ -85,7 +85,6 @@ class TurnHandler extends Component{
                 }
                 else
                 {
-                    console.log(this.props.users)
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
                     return {currentUserIndex: 0}
                 }
