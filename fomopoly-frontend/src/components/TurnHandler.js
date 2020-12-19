@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUser, payToBank} from '../actions/userActions'
+import {moveUserOneSpace, saveUser, payToBank, doubleUser} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
 
@@ -21,7 +21,25 @@ class TurnHandler extends Component{
         {
             this.setState({...this.state, rollable: 'disabled-button'})
             this.roll()
-            setTimeout(this.moveUser.bind(this), 150)
+            setTimeout(() => {
+                if(this.state.firstDice !== this.state.secondDice)
+                {
+                    this.moveUser()
+                }
+                else
+                {
+                    this.props.doubleUser(this.currentUser().id)
+                    setTimeout(() => {
+                        if(this.currentUser().doubles_rolled === 3)
+                        {
+                            console.log('rolled too many doubles')
+                            this.currentUser().in_jail = true
+                            this.currentUser().current_location = 10
+                            this.setState({...this.state, landed: true})
+                        }
+                    }, 150)
+                }
+            }, 150)
 
         }
     }
@@ -76,7 +94,7 @@ class TurnHandler extends Component{
     nextTurn()
     {
         this.setState({...this.state, rollable: 'active-button', landed: false})
-        if (this.state.firstDice !== this.state.secondDice)
+        if (this.state.firstDice !== this.state.secondDice || this.currentUser().in_jail === true)
         {
             this.setState((previousState) => {
                 if(this.state.currentUserIndex < this.props.users.length - 1)
@@ -107,23 +125,12 @@ class TurnHandler extends Component{
     renderButtons()
     {
         if(this.state.landed)
-        {
-            if(this.currentUser().current_location === 10 && this.currentUser().in_jail === true)
-            {
-                return (
-                    <>
-                        <Button type='active' text='Pay Bail' handleClick={this.nextTurn.bind(this)}/>
-                    </>
-                )
-            }
-            else
-            {        
+        {       
                 return (
                     <>
                         <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
                     </>
                 )
-            }
         }
         else if(this.currentUser().current_location === 10 && this.currentUser().in_jail === true)
         {
@@ -166,7 +173,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
         saveUser: (user) => dispatch(saveUser(user)),
-        payToBank: (id, amount) => dispatch(payToBank(id, amount))
+        payToBank: (id, amount) => dispatch(payToBank(id, amount)),
+        doubleUser: (id) => dispatch(doubleUser(id))
     }
 }
 
