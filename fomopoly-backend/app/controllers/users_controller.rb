@@ -18,6 +18,7 @@ class UsersController < ApplicationController
         user.cash = 1500
         user.current_location = 40
         user.in_jail = false
+        user.doubles_rolled = 0
         user.save
         render json: user
     end
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
                 user.cash = params[:cash]
                 user.current_location = params[:current_location]
                 user.in_jail = params[:in_jail]
+                user.doubles_rolled = params[:doubles_rolled]
                 if user.save
                     render json: user
                 else
