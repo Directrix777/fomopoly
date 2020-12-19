@@ -68,3 +68,9 @@ export const payToBank = (id, amount) => {
         dispatch({type: 'PAY_TO_BANK', id: id, amount: amount})
     }
 }
+
+export const payUser = (id, amount) => {
+    return (dispatch) => {
+        dispatch({type: 'PAY_USER', id: id, amount: amount})
+    }
+}
