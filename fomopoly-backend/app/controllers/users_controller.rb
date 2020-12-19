@@ -52,25 +52,4 @@ class UsersController < ApplicationController
             render json: {message: 'User not found'}
         end
     end
-
-    def transact
-        owner = User.find_by(params[:owner_id])
-        guest = User.find_by(params[:guest_id])
-        amount = params[:amount]
-        if owner && guest
-            if amount.class == Integer
-                guest.cash = guest.cash - amount
-                owner.cash = owner.cash + amount
-                if guest.save && owner.save
-                    render json: {message: `Successfully transferred $#{amount} from #{guest.name} to #{owner.name}`}
-                else
-                    render json: {message: 'There was an error with the server!'}
-                end
-            else
-                render json: {message: 'amount must be of type Integer'}
-            end
-        else
-            render json: {message: 'User not found'}
-        end
-    end
 end
