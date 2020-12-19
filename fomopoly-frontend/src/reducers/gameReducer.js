@@ -64,6 +64,20 @@ const gameReducer = (state = {spaces: [], users: [], loading: false, moving: fal
                 return user
             })
             return {...state, users: newUsersss}
+        case 'DOUBLE_USER':
+            let newUserssss = state.users.map((user) => {
+                if(user.id === action.id)
+                {
+                    //console.log("Found user to update location")
+                    let newUser = {}
+                    Object.assign(newUser, user)
+                    //console.log(newUser)
+                    newUser.doubles_rolled += 1
+                    return newUser
+                }
+                return user
+            })
+            return {...state, users: newUserssss}
         default: 
             return state
     }
