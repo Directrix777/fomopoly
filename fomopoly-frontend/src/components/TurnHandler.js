@@ -115,7 +115,9 @@ class TurnHandler extends Component{
             })
         }
         else
-        this.setState({...this.state, landed: false, rollable: 'active-button'})
+        {
+            this.setState({...this.state, landed: false, rollable: 'active-button'})
+        }
     }
 
     render(){
