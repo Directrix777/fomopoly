@@ -53,7 +53,7 @@ class TurnHandler extends Component{
         switch(this.currentUser().current_location)
         {
             case 4:
-                this.props.payToBank(this.currentUser().id, 100)
+                this.props.payToBank(this.currentUser().id, 200)
                 break
             case 30:
                 this.currentUser().in_jail = true
