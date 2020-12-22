@@ -25,6 +25,7 @@ class TurnHandler extends Component{
                 if(this.state.firstDice !== this.state.secondDice)
                 {
                     this.moveUser()
+                    this.props.resetDoubles(this.currentUser().id)
                 }
                 else
                 {
@@ -99,9 +100,12 @@ class TurnHandler extends Component{
 
     nextTurn()
     {
-        if (this.currentUser().doubles_rolled === 0)
+        if (this.currentUser().doubles_rolled === 0 || this.currentUser().in_jail === true)
         {
-            this.props.resetDoubles(this.currentUser().id)
+            if(this.currentUser().in_jail === false)
+            {
+                this.props.resetDoubles(this.currentUser().id)
+            }
             this.setState((previousState) => {
                 if(this.state.currentUserIndex < this.props.users.length - 1)
                 {
@@ -153,9 +157,10 @@ class TurnHandler extends Component{
                     <Button type='active' text='Pay Bail' handleClick={() => {
                         this.currentUser().in_jail = false
                         this.setState({...this.state, rollable: 'active-button'})
+                        this.props.resetDoubles(this.currentUser().id)
                         this.props.payToBank(this.currentUser().id, 50)
                     }}/>
-                    <Button type='active' text='Roll for Doubles' handleClick={() => {
+                    <Button type='active' text={`Roll for Doubles (${this.currentUser().doubles_rolled + 1})`} handleClick={() => {
                         this.roll()
                         setTimeout(() => {
                             if(this.state.firstDice === this.state.secondDice)
@@ -166,7 +171,18 @@ class TurnHandler extends Component{
                             }
                             else
                             {
-                                this.handleLanding()
+                                this.props.doubleUser(this.currentUser().id)
+                                if(this.currentUser().doubles_rolled === 3)
+                                {
+                                    this.currentUser().in_jail = false
+                                    this.props.resetDoubles(this.currentUser().id)
+                                    this.props.payToBank(this.currentUser().id, 50)
+                                    this.moveUser()
+                                }
+                                else
+                                {
+                                    this.handleLanding()
+                                }
                             }
                         }, 150)
                     }}/>
