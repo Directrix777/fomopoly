@@ -35,6 +35,7 @@ class TurnHandler extends Component{
                             console.log('rolled too many doubles')
                             this.currentUser().in_jail = true
                             this.currentUser().current_location = 10
+                            this.props.resetDoubles(this.currentUser().id)
                             this.setState({...this.state, landed: true})
                         }
                         else
@@ -58,6 +59,7 @@ class TurnHandler extends Component{
             case 30:
                 this.currentUser().in_jail = true
                 this.currentUser().current_location = 10
+                this.props.resetDoubles(this.currentUser().id)
                 break
             case 38:
                 this.props.payToBank(this.currentUser().id, 100)
@@ -97,7 +99,7 @@ class TurnHandler extends Component{
 
     nextTurn()
     {
-        if (this.currentUser().doubles_rolled === 0 || this.currentUser().in_jail === true)
+        if (this.currentUser().doubles_rolled === 0)
         {
             this.props.resetDoubles(this.currentUser().id)
             this.setState((previousState) => {
