@@ -99,6 +99,7 @@ class TurnHandler extends Component{
     {
         if (this.currentUser().doubles_rolled === 0 || this.currentUser().in_jail === true)
         {
+            this.props.resetDoubles(this.currentUser().id)
             this.setState((previousState) => {
                 if(this.state.currentUserIndex < this.props.users.length - 1)
                 {
@@ -111,6 +112,8 @@ class TurnHandler extends Component{
                 }
             })
         }
+        else
+        this.setState({...this.state, landed: false, rollable: 'active-button'})
     }
 
     render(){
