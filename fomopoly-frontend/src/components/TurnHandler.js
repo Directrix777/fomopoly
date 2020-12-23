@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moveUserOneSpace, saveUser, payToBank, doubleUser, resetDoubles} from '../actions/userActions'
+import {moveUserOneSpace, saveUser, payToBank, payUser, doubleUser, resetDoubles} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
 
@@ -82,20 +82,27 @@ class TurnHandler extends Component{
     moveUser()
     {
         const user = this.currentUser()
-        const handleLanding = this.handleLanding.bind(this);
-        (function myLoop(i, action, id) {
+        const originalTotal = this.state.total
+        const handleLanding = this.handleLanding.bind(this)
+        const passGo = (() => this.props.payUser(this.currentUser().id, 200));
+        (function myLoop(i, action) {
             setTimeout(function() {
-                action(id)            
+                if(39 - user.current_location === originalTotal - i)
+                {
+                    console.log('Passing go just once!!!!!')
+                    passGo()
+                }
+                action(user.id)       
                 if (--i) 
                 {
-                    myLoop(i, action, id);
+                    myLoop(i, action);
                 }
                 else 
                 {
                     handleLanding()
                 }
             }, 500)
-        })(this.state.total, this.props.moveUserOneSpace, user.id);
+        })(this.state.total, this.props.moveUserOneSpace);
     }
 
     nextTurn()
@@ -201,6 +208,7 @@ const mapDispatchToProps = (dispatch) => {
         moveUserOneSpace: (id) => dispatch(moveUserOneSpace(id)),
         saveUser: (user) => dispatch(saveUser(user)),
         payToBank: (id, amount) => dispatch(payToBank(id, amount)),
+        payUser: (id, amount) => dispatch(payUser(id, amount)),
         doubleUser: (id) => dispatch(doubleUser(id)),
         resetDoubles: (id) => dispatch(resetDoubles(id))
     }
