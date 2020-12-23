@@ -8,7 +8,11 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, text: ''}
+    }
+
+    componentDidMount() {
+        this.setState({...this.state, text: `Now ${this.currentUser().name}'s Turn!`})
     }
 
     currentUser() {
@@ -33,11 +37,10 @@ class TurnHandler extends Component{
                     setTimeout(() => {
                         if(this.currentUser().doubles_rolled === 3)
                         {
-                            console.log('rolled too many doubles')
                             this.currentUser().in_jail = true
                             this.currentUser().current_location = 10
                             this.props.resetDoubles(this.currentUser().id)
-                            this.setState({...this.state, landed: true})
+                            this.setState({...this.state, landed: true, text: `Three doubles in a row? Wait, that's illegal!`})
                         }
                         else
                         {
@@ -61,6 +64,7 @@ class TurnHandler extends Component{
                 this.currentUser().in_jail = true
                 this.currentUser().current_location = 10
                 this.props.resetDoubles(this.currentUser().id)
+                this.setState({...this.state, text: 'Sent to jail! Oh no!'})
                 break
             case 38:
                 this.props.payToBank(this.currentUser().id, 100)
@@ -124,10 +128,11 @@ class TurnHandler extends Component{
                     return {currentUserIndex: 0, rollable: 'active-button', landed: false}
                 }
             })
+            setTimeout(() => {this.setState({...this.state, text: `Now ${this.currentUser().name}'s Turn!`})}, 150)
         }
         else
         {
-            this.setState({...this.state, landed: false, rollable: 'active-button'})
+            this.setState({...this.state, landed: false, rollable: 'active-button', text: `Doubles! Go again, ${this.currentUser().name}!`})
         }
     }
 
@@ -137,7 +142,7 @@ class TurnHandler extends Component{
             <div className='turn-handler'>
                 <Roller first={this.state.firstDice} second={this.state.secondDice} total={this.state.total}/>
                 <div className={this.state.rollable} onClick={() => this.handleRoll()}>Roll</div>
-                <p>{`Now ${this.currentUser().name}'s Turn!`}</p>
+                <p style={{padding: 4}}>{this.state.text}</p>
                 {this.renderButtons()}
             </div>
         )
@@ -157,13 +162,13 @@ class TurnHandler extends Component{
         {
             if(this.state.rollable === 'active-button')
             {
-                this.setState({...this.state, rollable: 'disabled-button'})
+                this.setState({...this.state, rollable: 'disabled-button', text: `You're in jail, ${this.currentUser().name}. What's next?`})
             }
             return (
                 <>
                     <Button type='active' text='Pay Bail' handleClick={() => {
                         this.currentUser().in_jail = false
-                        this.setState({...this.state, rollable: 'active-button'})
+                        this.setState({...this.state, rollable: 'active-button', text: `You're free, ${this.currentUser().name}! Now you get to take your turn!`})
                         this.props.resetDoubles(this.currentUser().id)
                         this.props.payToBank(this.currentUser().id, 50)
                     }}/>
@@ -188,6 +193,7 @@ class TurnHandler extends Component{
                                 }
                                 else
                                 {
+                                    this.setState({...this.state, text: 'No luck! Try again next time!'})
                                     this.handleLanding()
                                 }
                             }
@@ -200,7 +206,7 @@ class TurnHandler extends Component{
 }
 
 const mapStateToProps = (state) => {
-    return{users: state.users, moving: state.moving}
+    return{users: state.users}
 }
 
 const mapDispatchToProps = (dispatch) => {
