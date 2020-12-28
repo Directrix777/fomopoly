@@ -128,7 +128,12 @@ class TurnHandler extends Component{
                     return {currentUserIndex: 0, rollable: 'active-button', landed: false}
                 }
             })
-            setTimeout(() => {this.setState({...this.state, text: `Now ${this.currentUser().name}'s Turn!`})}, 150)
+            {setTimeout(() => {
+                if(!this.currentUser().in_jail)
+                {
+                    this.setState({...this.state, text: `Now ${this.currentUser().name}'s Turn!`})
+                }
+            }, 150)}
         }
         else
         {
