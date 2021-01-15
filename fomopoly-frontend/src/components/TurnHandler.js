@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import {moveUserOneSpace, saveUser, payToBank, payUser, doubleUser, resetDoubles} from '../actions/userActions'
 import Roller from './Roller'
 import Button from './Button'
+import PropCard from './PropCard'
 
 class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, text: ''}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, text: '', location: 'Go'}
     }
 
     componentDidMount() {
@@ -72,7 +73,15 @@ class TurnHandler extends Component{
             default:
                 //nothing. This should only happen on free parking and just visiting/jail
         }
-        this.setState({...this.state, landed: true})
+        console.log(this.props.spaces[this.currentUser().current_location - 1].name)
+        if(!this.currentUser().in_jail)
+        {
+            this.setState({...this.state, landed: true, location: this.props.spaces[this.currentUser().current_location - 1]})
+        }
+        else
+        {
+            this.setState({...this.state, landed: true})
+        }
     }
 
     roll()
@@ -80,7 +89,7 @@ class TurnHandler extends Component{
         const firstDice = parseInt((Math.random() * 6) + 1)
         const secondDice = parseInt((Math.random() * 6) + 1)
         const total = firstDice + secondDice
-        this.setState({firstDice: firstDice, secondDice: secondDice, total: total, gotten: false});
+        this.setState({firstDice: firstDice, secondDice: secondDice, total: total});
     }
 
     moveUser()
@@ -160,6 +169,7 @@ class TurnHandler extends Component{
                 return (
                     <>
                         <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
+                        <PropCard space={this.state.location}/>
                     </>
                 )
         }
@@ -211,7 +221,7 @@ class TurnHandler extends Component{
 }
 
 const mapStateToProps = (state) => {
-    return{users: state.users}
+    return{users: state.users, spaces: state.spaces}
 }
 
 const mapDispatchToProps = (dispatch) => {
