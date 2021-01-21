@@ -297,7 +297,7 @@ code {
   width: 150px;
   text-align: center;
   border: 1px solid rgb(0,0,0);
-  margin-left: 10px;
+  margin-left: 8px;
   margin-bottom: 11px;
   background-color: rgb(0, 173, 0);
 }
@@ -307,7 +307,7 @@ code {
   width: 150px;
   text-align: center;
   border: 1px solid rgb(0,0,0);
-  margin-left: 10px;
+  margin-left: 8px;
   background-color: rgb(173, 0, 0);
 }
 
@@ -316,7 +316,7 @@ code {
   width: 150px;
   text-align: center;
   border: 1px solid rgb(0,0,0);
-  margin-left: 10px;
+  margin-left: 8px;
   background-color: rgb(173, 173, 173);
 }
 
@@ -330,4 +330,118 @@ code {
 
 .left-token {
   transform: rotate(-90deg);
+}
+
+.prop-card {
+  background-color: rgb(255, 255, 255);
+  margin: 8px;
+  width: 150px;
+  height: 220px;
+  color: black;
+  border: 2px solid rgb(0, 0, 0);
+  overflow-wrap: break-word;
+  font-size: 10pt;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  text-align: center;
+}
+
+.property-color-Brown {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(150,83,54);
+}
+
+.property-color-Light.Blue {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(170,225,250);
+}
+
+.property-color-Magenta{
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(220,55,149);
+}
+
+.property-color-Orange {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(247,148,27);
+}
+
+.property-color-Red {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(237,27,38);
+}
+
+.property-color-Yellow {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(255,238,6);
+}
+
+.property-color-Green {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(30,180,91);
+}
+
+.property-color-Blue {
+  width: 136px;
+  height: 31px;
+  margin: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(0,114,189);
+}
+
+.title-deed
+{
+  margin: 0px;
+  transform: translateY(4px);
+  font-weight: 825;
+
+}
+
+.property-name
+{
+  /* position: absolute; */
+  margin: 0px;
+  transform: translateY(4px);
+  font-weight: 725;
+}
+
+.rent-line
+{
+  margin: 0px;
+}
+
+.house-rent-line
+{
+  margin: 0px;
+  margin-right: 20px;
+  text-align: right;
+}
+
+.prop-divider
+{
+  margin-inline-start: 4px;
+  margin-inline-end: 4px;
+  border-style: solid;
 }
