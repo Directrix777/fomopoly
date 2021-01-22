@@ -1,4 +1,5 @@
 import React from 'react'
+import train from '../images/TRAIN.gif'
 
 export default function PropCard(props) {
     function abbreviateAvenue(string) {
@@ -17,13 +18,20 @@ export default function PropCard(props) {
         if (props.space.color === 'Black')
         {
             return (
-                <div className='prop-card'></div>
+                <div className='prop-card'>
+                    <img className= 'prop-card-icon' src={train} alt='train'/>
+                    <hr className='prop-divider'/>
+                    <p className='railroad-name'>{`${props.space.name.toUpperCase()}`}</p>
+                    <hr className='prop-divider'/>
+                </div>
             )
         }
         else if (props.space.color === 'Mint')
         {
             return (
-                <div className='prop-card'></div>
+                <div className='prop-card'>
+                    <p>{'A Utility'}</p>
+                </div>
             )
         }
         else
@@ -39,7 +47,7 @@ export default function PropCard(props) {
                     <p className='house-rent-line'>{`With 2 Houses ₣${props.space.two_house_rent}`}</p>
                     <p className='house-rent-line'>{`With 3 Houses ₣${props.space.three_house_rent}`}</p>
                     <p className='house-rent-line'>{`With 4 Houses ₣${props.space.four_house_rent}`}</p>
-                    <p className='rent-line'>{`With HOTEL ₣${props.space.four_house_rent}`}</p>
+                    <p className='rent-line'>{`With HOTEL ₣${props.space.hotel_rent}`}</p>
                     <hr className='prop-divider'/>
                     <p className='rent-line'>{`Mortgage Value ₣${props.space.mortgage_value}`}</p>
                     <p className='rent-line'>{`Houses cost ₣${props.space.house_price}`}</p>
@@ -49,6 +57,14 @@ export default function PropCard(props) {
                 </div>
             )
         }
+    }
+    else
+    {
+        return (
+            <div className='prop-card'>
+                <p>{'Something Else'}</p>
+            </div>
+        )
     }
     
     // color: "", ding

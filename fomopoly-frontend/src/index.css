@@ -427,6 +427,13 @@ code {
   font-weight: 725;
 }
 
+.railroad-name
+{
+  /* position: absolute; */
+  margin: 0px;
+  font-weight: 725;
+}
+
 .rent-line
 {
   margin: 0px;
@@ -435,13 +442,21 @@ code {
 .house-rent-line
 {
   margin: 0px;
-  margin-right: 20px;
+  margin-right: 14px;
   text-align: right;
 }
 
 .prop-divider
 {
-  margin-inline-start: 4px;
-  margin-inline-end: 4px;
+  margin-inline-start: 8px;
+  margin-inline-end: 8px;
   border-style: solid;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.prop-card-icon
+{
+  height: 80px;
+  width: 80px;
 }
