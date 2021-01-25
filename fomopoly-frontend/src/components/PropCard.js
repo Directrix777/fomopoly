@@ -10,8 +10,24 @@ export default function PropCard(props) {
             {
                 words[i] = 'Ave.'
             }
+            else if(words[i] === 'North')
+            {
+                words[i] = 'No.'
+            }
         }
         return words.join(' ').toUpperCase()
+    }
+
+    function abbreviatePennRailroad(name)
+    {
+        if(name === 'Pennsylvania Railroad')
+        {
+            return 'PENNSYLVANIA R.R.'
+        }
+        else
+        {
+            return name.toUpperCase()
+        }
     }
     if(props.space.color)
     {
@@ -21,8 +37,13 @@ export default function PropCard(props) {
                 <div className='prop-card'>
                     <img className= 'prop-card-icon' src={train} alt='train'/>
                     <hr className='prop-divider'/>
-                    <p className='railroad-name'>{`${props.space.name.toUpperCase()}`}</p>
+                    <p className='railroad-name'>{`${abbreviatePennRailroad(props.space.name)}`}</p>
                     <hr className='prop-divider'/>
+                    <p className='rent-line'>{`RENT ₣${props.space.flat_rent}`}</p>
+                    <p className='rent-line'>{`If 2 R.R.'s owned ₣${props.space.flat_rent * 2}`}</p>
+                    <p className='rent-line'>{`If 3 R.R.'s owned ₣${props.space.flat_rent * 4}`}</p>
+                    <p className='rent-line'>{`If 4 R.R.'s owned ₣${props.space.flat_rent * 8}`}</p>
+
                 </div>
             )
         }
