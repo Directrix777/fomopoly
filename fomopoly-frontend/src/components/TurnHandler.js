@@ -41,7 +41,7 @@ class TurnHandler extends Component{
                             this.currentUser().in_jail = true
                             this.currentUser().current_location = 10
                             this.props.resetDoubles(this.currentUser().id)
-                            this.setState({...this.state, landed: true, text: `Three doubles in a row? Wait, that's illegal!`})
+                            this.setState({...this.state, landed: true, text: `Three doubles in a row? Wait, that's illegal!`, location: this.props.spaces[this.currentUser().current_location - 1]})
                         }
                         else
                         {
@@ -65,7 +65,7 @@ class TurnHandler extends Component{
                 this.currentUser().in_jail = true
                 this.currentUser().current_location = 10
                 this.props.resetDoubles(this.currentUser().id)
-                this.setState({...this.state, text: 'Sent to jail! Oh no!'})
+                this.setState({...this.state, text: 'Sent to jail! Oh no!', location: this.props.spaces[this.currentUser().current_location - 1]})
                 break
             case 38:
                 this.props.payToBank(this.currentUser().id, 100)
@@ -208,7 +208,7 @@ class TurnHandler extends Component{
                                 }
                                 else
                                 {
-                                    this.setState({...this.state, text: 'No luck! Try again next time!'})
+                                    this.setState({...this.state, text: 'No luck! Try again next time!', location: this.props.spaces[this.currentUser().current_location - 1]})
                                     this.handleLanding()
                                 }
                             }
