@@ -1,5 +1,7 @@
 import React from 'react'
 import train from '../images/TRAIN.gif'
+import electric from '../images/ELECTRIC.jpg'
+import water from '../images/WATER.jpg'
 
 export default function PropCard(props) {
     function abbreviateAvenue(string) {
@@ -29,6 +31,18 @@ export default function PropCard(props) {
             return name.toUpperCase()
         }
     }
+
+    function utilityIcon(name)
+    {
+        if(name.split(' ')[0] === 'Electric')
+        {
+            return electric
+        }
+        else
+        {
+            return water
+        }
+    }
     if(props.space.color)
     {
         if (props.space.color === 'Black')
@@ -43,6 +57,7 @@ export default function PropCard(props) {
                     <p className='rent-line'>{`If 2 R.R.'s owned ₣${props.space.flat_rent * 2}`}</p>
                     <p className='rent-line'>{`If 3 R.R.'s owned ₣${props.space.flat_rent * 4}`}</p>
                     <p className='rent-line'>{`If 4 R.R.'s owned ₣${props.space.flat_rent * 8}`}</p>
+                    <p className='rent-line'>{`Mortgage Value ₣${props.space.mortgage_value}`}</p>
 
                 </div>
             )
@@ -51,7 +66,13 @@ export default function PropCard(props) {
         {
             return (
                 <div className='prop-card'>
-                    <p>{'A Utility'}</p>
+                    <img className= 'prop-card-icon' src={utilityIcon(props.space.name)} alt='train'/>
+                    <hr className='prop-divider'/>
+                    <p className='railroad-name'>{`${(props.space.name.toUpperCase())}`}</p>
+                    <hr className='prop-divider'/>
+                    <p className ='rent-line'>{`If one "Utility" is owned rent is 4 times amount shown on dice.`}</p>
+                    <p className ='rent-line'>{`If both "Utilities" are owned rent is 10 times amount shown on dice.`}</p>
+                    <p className='rent-line'>{`Mortgage Value ₣${props.space.mortgage_value}`}</p>
                 </div>
             )
         }
