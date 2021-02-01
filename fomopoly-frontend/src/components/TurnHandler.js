@@ -9,7 +9,7 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, text: '', location: 'Go'}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, ended: false, text: '', location: 'Go'}
     }
 
     componentDidMount() {
@@ -129,12 +129,12 @@ class TurnHandler extends Component{
             this.setState((previousState) => {
                 if(this.state.currentUserIndex < this.props.users.length - 1)
                 {
-                    return {currentUserIndex: previousState.currentUserIndex + 1, rollable: 'active-button', landed: false}
+                    return {currentUserIndex: previousState.currentUserIndex + 1, rollable: 'active-button', landed: false, ended: false}
                 }
                 else
                 {
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
-                    return {currentUserIndex: 0, rollable: 'active-button', landed: false}
+                    return {currentUserIndex: 0, rollable: 'active-button', landed: false, ended: false}
                 }
             })
             {setTimeout(() => {
@@ -146,7 +146,7 @@ class TurnHandler extends Component{
         }
         else
         {
-            this.setState({...this.state, landed: false, rollable: 'active-button', text: `Doubles! Go again, ${this.currentUser().name}!`})
+            this.setState({...this.state, landed: false, ended: false, rollable: 'active-button', text: `Doubles! Go again, ${this.currentUser().name}!`})
         }
     }
 
@@ -168,12 +168,13 @@ class TurnHandler extends Component{
         {       
                 return (
                     <>
-                        <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
+                        <Button type='passive' text='Dev End Turn' handleClick={this.nextTurn.bind(this)}/>
                         <PropCard space={this.state.location}/>
+                        {this.landedButtons()}
                     </>
                 )
         }
-        else if(this.currentUser().current_location === 10 && this.currentUser().in_jail === true)
+        else if(this.currentUser().in_jail === true)
         {
             if(this.state.rollable === 'active-button')
             {
@@ -181,7 +182,7 @@ class TurnHandler extends Component{
             }
             return (
                 <>
-                    <Button type='active' text='Pay Bail' handleClick={() => {
+                    <Button type='active' text='Pay Bail ₣50' handleClick={() => {
                         this.currentUser().in_jail = false
                         this.setState({...this.state, rollable: 'active-button', text: `You're free, ${this.currentUser().name}! Now you get to take your turn!`})
                         this.props.resetDoubles(this.currentUser().id)
@@ -215,6 +216,19 @@ class TurnHandler extends Component{
                         }, 150)
                     }}/>
                 </>
+            )
+        }
+    }
+
+    landedButtons() 
+    {
+        if(this.state.location.color)
+        {
+            return(
+                <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
+                    this.props.payToBank(this.currentUser().id, this.state.location.price)
+                    
+                }}/>
             )
         }
     }
