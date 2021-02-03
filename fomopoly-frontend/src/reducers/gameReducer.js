@@ -92,6 +92,20 @@ const gameReducer = (state = {spaces: [], users: [], loading: false, moving: fal
                 return user
             })
             return {...state, users: newUsersssss}
+        case 'SELL_SPACE':
+            let newSpaces = state.spaces.map((space) => {
+                if(space.id === action.space)
+                {
+                    //console.log("Found user to update location")
+                    let newSpace = {}
+                    Object.assign(newSpace, space)
+                    //console.log(newUser)
+                    newSpace.user_id = action.user
+                    return newSpace
+                }
+                return space
+            })
+            return {...state, spaces: newSpaces}
         default: 
             return state
     }

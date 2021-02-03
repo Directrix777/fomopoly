@@ -8,4 +8,12 @@ class SpacesController < ApplicationController
         space = Space.find_by(id: params[:id])
         render json: space
     end
+
+    def update
+        @@lock.synchronize do
+            space = Space.find_by(id: params[:id])
+            space.user_id = params[:user_id]
+            render json: params
+        end
+    end
 end

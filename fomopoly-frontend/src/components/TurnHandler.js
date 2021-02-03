@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {moveUserOneSpace, saveUser, payToBank, payUser, doubleUser, resetDoubles} from '../actions/userActions'
+import {sellSpace, saveSpace} from '../actions/spaceActions'
 import Roller from './Roller'
 import Button from './Button'
 import PropCard from './PropCard'
@@ -9,7 +10,7 @@ class TurnHandler extends Component{
     constructor(props)
     {
         super()
-        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, ended: false, text: '', location: 'Go'}
+        this.state = {currentUserIndex: 0, firstDice: 3, secondDice: 4, total: 0, rollable: 'active-button', landed: false, ended: false, text: '', location: 'Go', spacesToSave: []}
     }
 
     componentDidMount() {
@@ -134,6 +135,7 @@ class TurnHandler extends Component{
                 else
                 {
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
+                    this.state.spacesToSave.forEach((space) => {this.props.saveSpace(space)})
                     return {currentUserIndex: 0, rollable: 'active-button', landed: false, ended: false}
                 }
             })
@@ -227,7 +229,8 @@ class TurnHandler extends Component{
             return(
                 <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
                     this.props.payToBank(this.currentUser().id, this.state.location.price)
-                    
+                    this.props.sellSpace(this.state.location.id, this.currentUser().id)
+                    this.state.spacesToSave.push(this.state.location)
                 }}/>
             )
         }
@@ -245,7 +248,9 @@ const mapDispatchToProps = (dispatch) => {
         payToBank: (id, amount) => dispatch(payToBank(id, amount)),
         payUser: (id, amount) => dispatch(payUser(id, amount)),
         doubleUser: (id) => dispatch(doubleUser(id)),
-        resetDoubles: (id) => dispatch(resetDoubles(id))
+        resetDoubles: (id) => dispatch(resetDoubles(id)),
+        sellSpace: (space_id, user_id) => dispatch(sellSpace(space_id, user_id)),
+        saveSpace: (space) => dispatch(saveSpace(space))
     }
 }
 
