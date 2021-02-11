@@ -12,8 +12,23 @@ class SpacesController < ApplicationController
     def update
         @@lock.synchronize do
             space = Space.find_by(id: params[:id])
-            space.user_id = params[:user_id]
-            render json: space
+            space.user_id = params[:space][:user_id]
+            if space.save
+                render json: space
+            end
         end
+    end
+
+    def dissociate
+        spaces = Space.all
+        num = 0
+        spaces.each do |space|
+            if space.user_id == params[:user_id]
+                space.user_id = nil
+                space.save
+                num += 1
+            end
+        end
+        render json: {message: "Spaces dissociated!", num: num}
     end
 end
