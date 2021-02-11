@@ -103,7 +103,6 @@ class TurnHandler extends Component{
             setTimeout(function() {
                 if(39 - user.current_location === originalTotal - i)
                 {
-                    console.log('Passing go just once!!!!!')
                     passGo()
                 }
                 action(user.id)       
@@ -135,7 +134,7 @@ class TurnHandler extends Component{
                 else
                 {
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
-                    this.state.spacesToSave.forEach((space) => {this.props.saveSpace(space)})
+                    this.state.spacesToSave.forEach((space) => {this.props.saveSpace(this.props.spaces[space - 1])})
                     return {currentUserIndex: 0, rollable: 'active-button', landed: false, ended: false}
                 }
             })
@@ -230,7 +229,7 @@ class TurnHandler extends Component{
                 <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
                     this.props.payToBank(this.currentUser().id, this.state.location.price)
                     this.props.sellSpace(this.state.location.id, this.currentUser().id)
-                    this.state.spacesToSave.push(this.state.location)
+                    setTimeout(() => {this.state.spacesToSave.push(this.state.location.id)}, 250)
                 }}/>
             )
         }

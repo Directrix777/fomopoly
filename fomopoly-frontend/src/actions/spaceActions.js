@@ -23,7 +23,23 @@ export const saveSpace = (space) => {
             },
             body: JSON.stringify({space})
         }
-        fetch(`http://localhost:3000/spaces/${space}`, options)
+        fetch(`http://localhost:3000/spaces/${space.id}`, options)
+        .then(r => r.json())
+        .then(r => console.log(r))
+    }
+}
+
+export const dissociateSpace = (user_id) => {
+    return (dispatch) => {
+        const options = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({user_id: user_id})
+        }
+        fetch(`http://localhost:3000/spaces/dissociate`, options)
         .then(r => r.json())
         .then(r => console.log(r))
     }
