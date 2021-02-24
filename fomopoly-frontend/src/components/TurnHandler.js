@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {connect} from 'react-redux'
 import {moveUserOneSpace, saveUser, payToBank, payUser, doubleUser, resetDoubles} from '../actions/userActions'
 import {sellSpace, saveSpace} from '../actions/spaceActions'
@@ -225,14 +225,45 @@ class TurnHandler extends Component{
     {
         if(this.state.location.color)
         {
-            return(
-                <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
-                    this.props.payToBank(this.currentUser().id, this.state.location.price)
-                    this.props.sellSpace(this.state.location.id, this.currentUser().id)
-                    setTimeout(() => {this.state.spacesToSave.push(this.state.location.id)}, 250)
-                }}/>
-            )
+            if(!(this.state.location.user_id))
+            {
+                return(
+                    <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
+                        this.props.payToBank(this.currentUser().id, this.state.location.price)
+                        this.props.sellSpace(this.state.location.id, this.currentUser().id)
+                        setTimeout(() => {this.state.spacesToSave.push(this.state.location.id)}, 250)
+                    }}/>
+                )
+            }
+            else
+            {
+                if(this.state.text != `${(this.getUserName(this.state.location.user_id))} owns this space!`)
+                {
+                    this.setState({...this.state, text: `${(this.getUserName(this.state.location.user_id))} owns this space!`})
+                }
+                return(
+                    <Fragment>
+                        <Button type='active' text={`Pay Rent: ₣${this.state.location.flat_rent}`} handleClick={() => {
+                            this.props.payToBank(this.currentUser().id, this.state.location.flat_rent)
+                            this.props.payUser(this.state.location.user_id, this.state.location.flat_rent)
+                        }}/>
+                    </Fragment>
+                )
+            }
         }
+    }
+
+    getUserName(userId)
+    {
+        let users = this.props.users
+        for(let i = 0; i < users.length; i++)
+        {
+            if(users[i].id === userId)
+            {
+                return users[i].name
+            }
+        }
+        return "No one"
     }
 }
 
