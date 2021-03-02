@@ -251,6 +251,7 @@ class TurnHandler extends Component{
                             <Button type='active' text={`Pay Rent: ₣${this.state.location.flat_rent}`} handleClick={() => {
                                 this.props.payToBank(this.currentUser().id, this.state.location.flat_rent)
                                 this.props.payUser(this.state.location.user_id, this.state.location.flat_rent)
+                                this.setState({...this.state, ended: true})
                             }}/>
                         </Fragment>
                     )
@@ -261,6 +262,7 @@ class TurnHandler extends Component{
         {
             return(
                 <>
+                    <Button type='active' text='Trade Properties' handleClick={() => {console.log('Trade would happen here')}}/>
                     <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
                 </>
             )
