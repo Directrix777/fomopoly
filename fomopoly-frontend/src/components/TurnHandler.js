@@ -223,33 +223,47 @@ class TurnHandler extends Component{
 
     landedButtons() 
     {
-        if(this.state.location.color)
+        if(!this.state.ended)
         {
-            if(!(this.state.location.user_id))
+            if(this.state.location.color)
             {
-                return(
-                    <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
-                        this.props.payToBank(this.currentUser().id, this.state.location.price)
-                        this.props.sellSpace(this.state.location.id, this.currentUser().id)
-                        setTimeout(() => {this.state.spacesToSave.push(this.state.location.id)}, 250)
-                    }}/>
-                )
-            }
-            else
-            {
-                if(this.state.text != `${(this.getUserName(this.state.location.user_id))} owns this space!`)
+                if(!(this.state.location.user_id))
                 {
-                    this.setState({...this.state, text: `${(this.getUserName(this.state.location.user_id))} owns this space!`})
-                }
-                return(
-                    <Fragment>
-                        <Button type='active' text={`Pay Rent: ₣${this.state.location.flat_rent}`} handleClick={() => {
-                            this.props.payToBank(this.currentUser().id, this.state.location.flat_rent)
-                            this.props.payUser(this.state.location.user_id, this.state.location.flat_rent)
+                    return(
+                        <Button type='active' text={`Buy Property ₣${this.state.location.price}`} handleClick={() => {
+                            this.props.payToBank(this.currentUser().id, this.state.location.price)
+                            this.props.sellSpace(this.state.location.id, this.currentUser().id)
+                            setTimeout(() => {
+                                this.state.spacesToSave.push(this.state.location.id)
+                                this.setState({...this.state, ended: true})
+                            }, 250)
                         }}/>
-                    </Fragment>
-                )
+                    )
+                }
+                else
+                {
+                    if(this.state.text !== `${(this.getUserName(this.state.location.user_id))} owns this space!`)
+                    {
+                        this.setState({...this.state, text: `${(this.getUserName(this.state.location.user_id))} owns this space!`})
+                    }
+                    return(
+                        <Fragment>
+                            <Button type='active' text={`Pay Rent: ₣${this.state.location.flat_rent}`} handleClick={() => {
+                                this.props.payToBank(this.currentUser().id, this.state.location.flat_rent)
+                                this.props.payUser(this.state.location.user_id, this.state.location.flat_rent)
+                            }}/>
+                        </Fragment>
+                    )
+                }
             }
+        }
+        else
+        {
+            return(
+                <>
+                    <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
+                </>
+            )
         }
     }
 
