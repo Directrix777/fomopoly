@@ -143,6 +143,7 @@ class TurnHandler extends Component{
                 {
                     this.setState({...this.state, text: `Now ${this.currentUser().name}'s Turn!`})
                 }
+                this.props.setCurrentUser(this.state.currentUserIndex)
             }, 150)}
         }
         else
