@@ -262,7 +262,7 @@ class TurnHandler extends Component{
         {
             return(
                 <>
-                    <Button type='active' text='Trade Properties' handleClick={() => {console.log('Trade would happen here')}}/>
+                    <Button type='active' text='Trade Properties' handleClick={() => {this.props.trade()}}/>
                     <Button type='passive' text='End Turn' handleClick={this.nextTurn.bind(this)}/>
                 </>
             )
