@@ -10,7 +10,7 @@ class Game extends Component
     constructor(props)
     {
         super()
-        this.state = {trading: false}
+        this.state = {currentUserIndex: 0, trading: false}
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -33,13 +33,18 @@ class Game extends Component
         //would stop the fetch set up in componentDidMount
     }
 
+    setCurrentUser(index)
+    {
+        this.setState({...this.state, currentUserIndex: index})
+    }
+
     render()
     {
         return (
             <>
                 {this.props.users.map((user) => {return <UserStatCard key={user.id} user={user}/>})}
                 <Board />
-                <TurnHandler trade={() => {this.setState({trading: true})}}/>
+                <TurnHandler trade={() => {this.setState({trading: true})}} setCurrentUser={this.setCurrentUser.bind(this)}/>
             </>
         )
     }
