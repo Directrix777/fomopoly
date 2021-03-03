@@ -10,6 +10,7 @@ class Game extends Component
     constructor(props)
     {
         super()
+        this.state = {trading: false}
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -38,7 +39,7 @@ class Game extends Component
             <>
                 {this.props.users.map((user) => {return <UserStatCard key={user.id} user={user}/>})}
                 <Board />
-                <TurnHandler />
+                <TurnHandler trade={() => {this.setState({trading: true})}}/>
             </>
         )
     }
