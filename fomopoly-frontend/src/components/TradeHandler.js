@@ -41,7 +41,9 @@ class TradeHandler extends Component
     {
         return (
             <div className='trade-handler'>
-                <Button type='passive' text='Close' handleClick={() => {this.props.close()}}/>
+                <div className='close-button'>
+                    <Button type='passive' text='Close' handleClick={() => {this.props.close()}}/>
+                </div>
             </div>
         )
     }

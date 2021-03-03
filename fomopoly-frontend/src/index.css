@@ -296,7 +296,7 @@ code {
   height: 20px;
   width: 150px;
   text-align: center;
-  border: 1px solid rgb(0,0,0);
+  border: 2px solid rgb(0,0,0);
   margin-left: 8px;
   margin-bottom: 11px;
   background-color: rgb(0, 173, 0);
@@ -306,7 +306,7 @@ code {
   height: 20px;
   width: 150px;
   text-align: center;
-  border: 1px solid rgb(0,0,0);
+  border: 2px solid rgb(0,0,0);
   margin-left: 8px;
   background-color: rgb(173, 0, 0);
 }
@@ -315,7 +315,7 @@ code {
   height: 20px;
   width: 150px;
   text-align: center;
-  border: 1px solid rgb(0,0,0);
+  border: 2px solid rgb(0,0,0);
   margin-left: 8px;
   background-color: rgb(173, 173, 173);
 }
@@ -473,4 +473,11 @@ code {
   border: 3px solid rgb(0, 0, 0);
   background-color: rgb(15, 207, 79);
   color: rgb(255, 255, 255);
+}
+
+.close-button
+{
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
