@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Button from './Button'
 
-export default class MyComponent extends Component
+class TradeHandler extends Component
 {
     constructor(props)
     {
@@ -45,3 +46,9 @@ export default class MyComponent extends Component
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return{users: state.users}
+}
+
+export default connect(mapStateToProps)(TradeHandler)
