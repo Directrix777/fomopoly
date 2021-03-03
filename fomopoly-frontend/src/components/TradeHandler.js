@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Button from './Button'
 
 export default class MyComponent extends Component
 {
@@ -37,6 +38,10 @@ export default class MyComponent extends Component
 
     render()
     {
-        return (<div>This is a wireframe from the Workshop</div>)
+        return (
+            <div>
+                <Button type='passive' text='Close' handleClick={() => {this.props.close()}}/>
+            </div>
+        )
     }
 }
