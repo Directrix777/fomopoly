@@ -45,8 +45,17 @@ class Game extends Component
                 {this.props.users.map((user) => {return <UserStatCard key={user.id} user={user}/>})}
                 <Board />
                 <TurnHandler trade={() => {this.setState({trading: true})}} setCurrentUser={this.setCurrentUser.bind(this)}/>
+                {this.renderTrader()}
             </>
         )
+    }
+
+    renderTrader()
+    {
+        if(this.state.trading)
+        {
+            //return(<TradeHandler currentUserIndex={this.state.currentUserIndex} close={() => {this.setState({...this.state, trading: false})}}/>)
+        }
     }
 }
 
