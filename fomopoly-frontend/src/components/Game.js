@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {moveUserOneSpace} from '../actions/userActions'
 import UserStatCard from './UserStatCard'
 import TurnHandler from './TurnHandler'
+import TradeHandler from './TradeHandler'
 
 class Game extends Component
 {
@@ -54,7 +55,7 @@ class Game extends Component
     {
         if(this.state.trading)
         {
-            //return(<TradeHandler currentUserIndex={this.state.currentUserIndex} close={() => {this.setState({...this.state, trading: false})}}/>)
+            return(<TradeHandler currentUserIndex={this.state.currentUserIndex} close={() => {this.setState({...this.state, trading: false})}}/>)
         }
     }
 }
