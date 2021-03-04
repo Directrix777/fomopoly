@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from './Button'
+import {sellSpace} from '../actions/spaceActions'
+import {payToBank, payUser} from '../actions/userActions'
 
 class TradeHandler extends Component
 {
     constructor(props)
     {
         super()
-        this.state = {}
+        this.state = {users: props.users, trade: false}
+    }
+
+    currentUser()
+    {
+        return this.state.users[this.props.currentUserIndex]
     }
 
     changeSomethingOnDeeperLevelOfState()
@@ -44,8 +51,36 @@ class TradeHandler extends Component
                 <div className='close-button'>
                     <Button type='passive' text='Close' handleClick={() => {this.props.close()}}/>
                 </div>
+                {this.renderPlayerSelector()}
             </div>
         )
+    }
+
+    renderPlayerSelector()
+    {
+        if(this.state.trade === false)
+        {
+            return(
+                <>
+                    <p>{`Who would you like to trade with, ${this.currentUser().name}?`}</p>
+                    {this.state.users.map((user) => {
+                        if(user.id !== this.currentUser().id)
+                        {
+                            return (
+                                <p>{user.name}</p>
+                            )
+                        }
+                        else
+                        {
+                            return(
+                                <>
+                                </>
+                            )
+                        }
+                    })}
+                </>
+            )
+        }
     }
 }
 
@@ -53,4 +88,12 @@ const mapStateToProps = (state) => {
     return{users: state.users}
 }
 
-export default connect(mapStateToProps)(TradeHandler)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        payToBank: (id, amount) => dispatch(payToBank(id,amount)),
+        payUser: (id, amount) => dispatch(payUser(id, amount)),
+        sellSpace: (space_id, user_id) => dispatch(sellSpace(space_id, user_id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TradeHandler)
