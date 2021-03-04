@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from './Button'
+import TraderCard from './TraderCard'
 import {sellSpace} from '../actions/spaceActions'
 import {payToBank, payUser} from '../actions/userActions'
 
@@ -62,12 +63,12 @@ class TradeHandler extends Component
         {
             return(
                 <>
-                    <p>{`Who would you like to trade with, ${this.currentUser().name}?`}</p>
+                    <p style={{fontSize: '20px'}}>{`Who would you like to trade with, ${this.currentUser().name}?`}</p>
                     {this.state.users.map((user) => {
                         if(user.id !== this.currentUser().id)
                         {
                             return (
-                                <p>{user.name}</p>
+                                <TraderCard user={user}/>
                             )
                         }
                         else
@@ -85,7 +86,7 @@ class TradeHandler extends Component
 }
 
 const mapStateToProps = (state) => {
-    return{users: state.users}
+    return{users: state.users, spaces: state.spaces}
 }
 
 const mapDispatchToProps = (dispatch) => {
