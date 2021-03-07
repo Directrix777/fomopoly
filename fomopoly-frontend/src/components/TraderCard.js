@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import CAR from '../images/tokens/CAR.png'
 import CAT from '../images/tokens/CAT.png'
 import DOG from '../images/tokens/DOG.png'
@@ -12,7 +13,7 @@ import THIMBLE from '../images/tokens/THIMBLE.png'
 import TREX from '../images/tokens/TREX.png'
 import WHEELBARROW from '../images/tokens/WHEELBARROW.png'
 
-export default class MyComponent extends Component
+class TraderCard extends Component
 {
     constructor(props)
     {
@@ -55,6 +56,7 @@ export default class MyComponent extends Component
                 <hr className='prop-divider'/>
                 <p style={{marginBottom: '2px', marginTop: '2px'}}>{`₣${this.props.user.cash}`}</p>
                 <hr className='prop-divider'/>
+                {this.renderPropOverview()}
             </div>
         )
     }
@@ -163,4 +165,25 @@ export default class MyComponent extends Component
             return <></>
         }
     }
+
+    renderPropOverview()
+    {
+        let numsOfColors = {'Brown': 0, 'Light Blue': 0, 'Magenta': 0, 'Orange': 0, 'Red': 0, 'Yellow': 0, 'Green': 0, 'Blue': 0, 'Black': 0, 'Mint': 0,}
+        let space = {}
+        for(let i = 0; i < this.props.spaces.length; i++)
+        {
+            space = this.props.spaces[i]
+            if(space.user_id === this.props.user.id)
+            {
+                numsOfColors[space.color] = numsOfColors[space.color] + 1
+            }
+        }
+        console.log(numsOfColors)
+    }
 }
+
+const mapStateToProps = (state) => {
+    return{spaces: state.spaces}
+}
+
+export default connect(mapStateToProps)(TraderCard)

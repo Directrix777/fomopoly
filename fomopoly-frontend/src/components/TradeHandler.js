@@ -86,7 +86,7 @@ class TradeHandler extends Component
 }
 
 const mapStateToProps = (state) => {
-    return{users: state.users, spaces: state.spaces}
+    return{users: state.users}
 }
 
 const mapDispatchToProps = (dispatch) => {
