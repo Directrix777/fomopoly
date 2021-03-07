@@ -168,6 +168,8 @@ class TraderCard extends Component
 
     renderPropOverview()
     {
+        let propCubeStacks = []
+        let propCubes = []
         let numsOfColors = {'Brown': 0, 'Light Blue': 0, 'Magenta': 0, 'Orange': 0, 'Red': 0, 'Yellow': 0, 'Green': 0, 'Blue': 0, 'Black': 0, 'Mint': 0,}
         let space = {}
         for(let i = 0; i < this.props.spaces.length; i++)
@@ -178,7 +180,28 @@ class TraderCard extends Component
                 numsOfColors[space.color] = numsOfColors[space.color] + 1
             }
         }
-        console.log(numsOfColors)
+
+        //numsOfColors initialized with number of properties the given user owns of each color
+        //now can work with that information to stack cubes
+
+        for(let i = 0; i < Object.keys(numsOfColors).length; i++)
+        {
+            propCubes = []
+            for(let j = 0; j < numsOfColors[Object.keys(numsOfColors)[i]]; j++)
+            {
+                propCubes.push(
+                    <div className={`prop-cube-${Object.keys(numsOfColors)[i]}`}>
+                    </div>
+                )
+            }
+            if(propCubes !== [])
+            propCubeStacks.push(
+                <div className='prop-cube-stack'>
+                    {propCubes}
+                </div>
+            )
+        }
+        return propCubeStacks
     }
 }
 
