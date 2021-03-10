@@ -135,7 +135,7 @@ class TurnHandler extends Component{
                 {
                     this.props.users.forEach((user) => {this.props.saveUser(user)})
                     this.state.spacesToSave.forEach((space) => {this.props.saveSpace(this.props.spaces[space - 1])})
-                    return {currentUserIndex: 0, rollable: 'active-button', landed: false, ended: false}
+                    return {currentUserIndex: 0, rollable: 'active-button', landed: false, ended: false, spacesToSave: []}
                 }
             })
             {setTimeout(() => {
@@ -243,15 +243,20 @@ class TurnHandler extends Component{
                 }
                 else
                 {
-                    if(this.state.text !== `${(this.getUserName(this.state.location.user_id))} owns this space!`)
+                    if(this.state.location.user_id !== this.currentUser().id && this.state.text !== `${(this.getUserName(this.state.location.user_id))} owns this space!`)
                     {
                         this.setState({...this.state, text: `${(this.getUserName(this.state.location.user_id))} owns this space!`})
                     }
+                    else if(this.state.location.user_id === this.currentUser().id)
+                    {
+                        this.setState({...this.state, text: `You own this space, ${(this.getUserName(this.state.location.user_id))}!`, ended: true})
+                    }
+                    let rent = this.handleRent(this.state.location)
                     return(
                         <Fragment>
-                            <Button type='active' text={`Pay Rent: ₣${this.state.location.flat_rent}`} handleClick={() => {
-                                this.props.payToBank(this.currentUser().id, this.state.location.flat_rent)
-                                this.props.payUser(this.state.location.user_id, this.state.location.flat_rent)
+                            <Button type='active' text={`Pay Rent: ₣${rent}`} handleClick={() => {
+                                this.props.payToBank(this.currentUser().id, rent)
+                                this.props.payUser(this.state.location.user_id, rent)
                                 this.setState({...this.state, ended: true})
                             }}/>
                         </Fragment>
@@ -281,6 +286,47 @@ class TurnHandler extends Component{
             }
         }
         return "No one"
+    }
+
+    handleRent(space)
+    {
+        switch(space.color)
+        {
+            case 'Mint':
+                switch(space.id)
+                {
+                    case 12:
+                        if(this.props.spaces[27].user_id === space.user_id)
+                        {
+                            return (this.state.total * 10)
+                        }
+                        else
+                        {
+                            return (this.state.total * 4)
+                        }
+                    case 28:
+                        if(this.props.spaces[11].user_id === space.user_id)
+                        {
+                            return (this.state.total * 10)
+                        }
+                        else
+                        {
+                            return (this.state.total * 4)
+                        }
+                }
+            case 'Black':
+                let rent = 25
+                for(let i = 4; i < 39; i += 10)
+                {
+                    if(this.props.spaces[i].user_id === space.user_id && this.props.spaces[i].id !== space.id)
+                    {
+                        rent = rent * 2
+                    }
+                }
+                return rent
+            default:
+                return space.flat_rent
+        }
     }
 }
 
