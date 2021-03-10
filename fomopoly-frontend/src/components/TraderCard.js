@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import Button from './Button'
 import CAR from '../images/tokens/CAR.png'
 import CAT from '../images/tokens/CAT.png'
 import DOG from '../images/tokens/DOG.png'
@@ -57,6 +58,7 @@ class TraderCard extends Component
                 <p style={{marginBottom: '2px', marginTop: '2px'}}>{`₣${this.props.user.cash}`}</p>
                 <hr className='prop-divider'/>
                 {this.renderPropOverview()}
+                {/* <hr className='prop-divider'/> */}
             </div>
         )
     }
@@ -184,17 +186,17 @@ class TraderCard extends Component
         //numsOfColors initialized with number of properties the given user owns of each color
         //now can work with that information to stack cubes
 
-        for(let i = 0; i < Object.keys(numsOfColors).length; i++)
+        for(let i = 0; i < Object.keys(numsOfColors).length; i++)//for each of the colors
         {
             propCubes = []
-            for(let j = 0; j < numsOfColors[Object.keys(numsOfColors)[i]]; j++)
+            for(let j = 0; j < numsOfColors[Object.keys(numsOfColors)[i]]; j++)//render as many cubes as they own
             {
                 propCubes.push(
                     <div className={`prop-cube-${Object.keys(numsOfColors)[i]}`}>
                     </div>
                 )
             }
-            if(propCubes !== [])
+            if(propCubes !== []) //put cubes in a stack if any were rendered
             propCubeStacks.push(
                 <div className='prop-cube-stack'>
                     {propCubes}

@@ -495,8 +495,8 @@ code {
 .trader-card {
   float: left;
   border: 1px solid rgb(0,0,0);
-  height: 250px;
-  width: 150px;
+  height: 280px;
+  width: 157px;
   margin: 10px;
   color:rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
@@ -593,5 +593,6 @@ code {
 }
 
 .prop-cube-stack {
-  float: left
+  float: left;
+  height: 65px;
 }
