@@ -57,8 +57,14 @@ class TraderCard extends Component
                 <hr className='prop-divider'/>
                 <p style={{marginBottom: '2px', marginTop: '2px'}}>{`₣${this.props.user.cash}`}</p>
                 <hr className='prop-divider'/>
-                {this.renderPropOverview()}
-                {/* <hr className='prop-divider'/> */}
+                <div style={{height: '134px'}}>
+                    {this.renderPropOverview()}
+                </div>
+                <br/>
+                <hr className='prop-divider'/>
+                <div className='trader-card-button'>
+                    <Button type='active' text={this.props.user.name} handleClick={() => {console.log('Start trade here!')}}/>
+                </div>
             </div>
         )
     }
