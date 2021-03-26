@@ -10,7 +10,7 @@ class TradeHandler extends Component
     constructor(props)
     {
         super()
-        this.state = {users: props.users, trade: false}
+        this.state = {users: props.users, trade: false, tradingWith: 0}
     }
 
     currentUser()
@@ -50,7 +50,10 @@ class TradeHandler extends Component
         return (
             <div className='trade-handler'>
                 <div className='close-button'>
-                    <Button type='passive' text='Close' handleClick={() => {this.props.close()}}/>
+                    <Button type='passive' text='Close' handleClick={() => {
+                        this.setState({trade: false, tradingWith: 0})
+                        setTimeout(this.props.close(), 150)
+                        }}/>
                 </div>
                 {this.renderPlayerSelector()}
             </div>
@@ -68,7 +71,7 @@ class TradeHandler extends Component
                         if(user.id !== this.currentUser().id)
                         {
                             return (
-                                <TraderCard user={user}/>
+                                <TraderCard user={user} handleClick={((id) => {this.setState({trade: true, tradingWith: id})}).bind(this)}/>
                             )
                         }
                         else
