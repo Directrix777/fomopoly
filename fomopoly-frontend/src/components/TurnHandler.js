@@ -171,7 +171,7 @@ class TurnHandler extends Component{
                 return (
                     <>
                         <Button type='passive' text='Dev End Turn' handleClick={this.nextTurn.bind(this)}/>
-                        <PropCard space={this.state.location}/>
+                        <PropCard space={this.state.location} fullSet={this.isFullSet(this.state.location.color)}/>
                         {this.landedButtons()}
                     </>
                 )
@@ -313,7 +313,10 @@ class TurnHandler extends Component{
                         {
                             return (this.state.total * 4)
                         }
+                    default: 
+                        break
                 }
+                break
             case 'Black':
                 let rent = 25
                 for(let i = 4; i < 39; i += 10)
@@ -325,8 +328,35 @@ class TurnHandler extends Component{
                 }
                 return rent
             default:
-                return space.flat_rent
+                if(this.isFullSet(space.color))
+                {
+                    return space.flat_rent * 2
+                }
+                else
+                {
+                    return space.flat_rent
+                }
+                
         }
+    }
+
+    isFullSet(color) //Takes in string argument
+    {
+        if(!color)
+        {
+            return false
+        }
+        let colorValues= {"Brown" : [0,2], "Light Blue" : [5,7,8], "Magenta" : [10,12,13], "Orange" : [15,17,18], "Red" : [20,22,23], "Yellow" : [25,26,28], "Green" : [30,31,33], "Blue" : [37, 39], "Black" : [4, 14, 24, 34], "Mint" : [11, 27]}
+        let colorSet = colorValues[color]
+        let userId = this.props.spaces[colorSet[0]].user_id
+        for(let i = 1; i < colorSet.length; i++)
+        {
+            if(this.props.spaces[colorSet[i]].user_id !== userId)
+            {
+                return false
+            }
+        }
+        return true
     }
 }
 

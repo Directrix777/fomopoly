@@ -352,6 +352,21 @@ code {
   text-align: center;
 }
 
+.golden-prop-card {
+  background-color: goldenrod;
+  margin: 8px;
+  width: 150px;
+  height: 220px;
+  color: rgb(255, 231, 14);
+  border: 2px solid rgb(255, 231, 14);
+  overflow-wrap: break-word;
+  font-size: 10pt;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  text-align: center;
+}
+
 .property-color-Brown {
   width: 136px;
   height: 31px;
@@ -420,6 +435,7 @@ code {
 {
   margin: 0px;
   transform: translateY(4px);
+  color:rgb(0, 0, 0);
   font-weight: 825;
 
 }
@@ -429,6 +445,7 @@ code {
   /* position: absolute; */
   margin: 0px;
   transform: translateY(4px);
+  color:rgb(0, 0, 0);
   font-weight: 725;
 }
 
@@ -437,6 +454,14 @@ code {
   /* position: absolute; */
   margin: 0px;
   font-weight: 725;
+}
+
+.golden-railroad-name
+{
+  /* position: absolute; */
+  margin: 0px;
+  font-weight: 725;
+  color: rgb(255, 231, 14)
 }
 
 .rent-line
