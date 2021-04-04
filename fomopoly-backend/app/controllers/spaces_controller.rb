@@ -25,6 +25,7 @@ class SpacesController < ApplicationController
         spaces.each do |space|
             if space.user_id == params[:user_id]
                 space.user_id = nil
+                space.houses = 0
                 space.save
                 num += 1
             end
