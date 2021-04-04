@@ -630,3 +630,15 @@ code {
   margin-left: -6px;
   margin-top: 3px;
 }
+
+.operator-card
+{
+  float: left;
+  border: 1px solid rgb(0,0,0);
+  height: 584px;
+  width: 158px;
+  margin: 10px;
+  margin-top: 40px;
+  color:rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}

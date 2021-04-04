@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from './Button'
 import TraderCard from './TraderCard'
+import OperatorCard from './OperatorCard'
 import {sellSpace} from '../actions/spaceActions'
 import {payToBank, payUser} from '../actions/userActions'
 
@@ -10,7 +11,7 @@ class TradeHandler extends Component
     constructor(props)
     {
         super()
-        this.state = {users: props.users, trade: false, tradingWith: 0}
+        this.state = {users: props.users, trade: false, tradingWith: 0, offerings: [], wants: []}
     }
 
     currentUser()
@@ -55,6 +56,7 @@ class TradeHandler extends Component
                         setTimeout(this.props.close(), 150)
                         }}/>
                 </div>
+                <OperatorCard user={this.currentUser()} offerings={this.state.offerings}/>
                 {this.renderPlayerSelector()}
             </div>
         )
